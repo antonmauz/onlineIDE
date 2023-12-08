@@ -1,6 +1,12 @@
+/**
+ * The `Project` class represents a project entity with an ID, name, and a set of source files.
+ */
 package edu.tum.ase.project.model;
 
+import java.util.Set;
+
 import org.hibernate.annotations.GenericGenerator;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -15,6 +21,9 @@ public class Project {
     private String name;
 
     // ... additional members, often include @OneToMany mappings
+    @OneToMany(mappedBy = "project", cascade = CascadeType.REMOVE)
+    private Set<SourceFile> sourceFiles;
+
     protected Project() {
         // no-args constructor required by JPA spec
         // this one is protected since it shouldn't be used directly

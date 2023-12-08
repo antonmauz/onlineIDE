@@ -3,9 +3,9 @@ package edu.tum.ase.project.service;
 import edu.tum.ase.project.model.Project;
 import edu.tum.ase.project.repository.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class ProjectService {
@@ -23,4 +23,26 @@ public class ProjectService {
     public List<Project> getProjects() {
         return projectRepository.findAll();
     }
+
+    public Project updateProject(Project project) {
+        if (project.getId() == null) {
+            return null;
+        }
+    
+        Optional<Project> existingProjectOpt = projectRepository.findById(project.getId());
+        if (!existingProjectOpt.isPresent()) {
+            return null;
+        }
+        return projectRepository.save(project);
+    }
+
+    public void deleteProjectById(String id) {
+        projectRepository.deleteById(id);
+    }
+
+    public Project findById(String id) {
+        return projectRepository.findById(id).get();
+    }
+
+
 }
