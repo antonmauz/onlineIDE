@@ -1,0 +1,18 @@
+# H2 Database configuration for development profile
+spring:
+  datasource:
+    url: jdbc:h2:mem:testdb # URL for in-memory H2 database
+    driverClassName: org.h2.Driver # H2 database driver class
+    username: admin # Default username for H2
+    password: '' # Default password for H2 (empty)
+
+  # Hibernate configuration
+  jpa:
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect # Hibernate dialect for H2
+        jdbc:
+          lob:
+            non_contextual_creation: true # Fix for Hibernate issue with LOB creation
+    hibernate:
+      ddl-auto: update # Hibernate DDL auto setting
