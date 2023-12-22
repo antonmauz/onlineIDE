@@ -2,18 +2,19 @@ package edu.tum.ase.compiler;
 
 import edu.tum.ase.compiler.model.SourceCode;
 import edu.tum.ase.compiler.service.CompilerService;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.*;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.junit.jupiter.api.extension.ExtendWith;
 
+@ExtendWith(SpringExtension.class)
+@SpringBootTest
 class CompilerServiceTest {
 
+    @Autowired
     private CompilerService compilerService;
-
-    @BeforeEach
-    void setUp() {
-        compilerService = new CompilerService();
-    }
 
     @Test
     void should_ReturnError_When_FileTypeIsNotSupported() {
