@@ -22,4 +22,4 @@ package:
     stage: package
     script: mvn package
     variables:
-        MAVEN_OPTS: "DskipTests=true"
+        MAVEN_OPTS: "-DskipTests=true"
