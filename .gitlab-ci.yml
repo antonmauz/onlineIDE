@@ -2,24 +2,52 @@
 image: maven:3.5.2-jdk-8
 
 #Stages
-stages:          
+stages:
   - build
   - test
   - package
 
 # This job runs in the build stage, which runs first.
-build:
+build-compiler:
   stage: build
-  script: mvn clean compile
+  script:
+    - cd compiler
+    - mvn clean compile
+    - cd ..
+
+build-project:
+  stage: build
+  script:
+    - cd project
+    - mvn clean compile
+    - cd ..
 
 #Test Job
-test: 
-    stage: test
-    script: mvn test
+test-compiler:
+  stage: test
+  script:
+    - cd compiler
+    - mvn test
+    - cd ..
+
+test-project:
+  stage: test
+  script:
+    - cd project
+    - mvn test
+    - cd ..
 
 #Package Job
-package:
-    stage: package
-    script: mvn package
-    variables:
-        MAVEN_OPTS: "-DskipTests=true"
+package-compiler:
+  stage: package
+  script:
+    - cd compiler
+    - mvn package -DskipTests=true
+    - cd ..
+
+package-project:
+  stage: package
+  script:
+    - cd project
+    - mvn package -DskipTests=true
+    - cd ..
