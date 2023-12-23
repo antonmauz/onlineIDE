@@ -1,0 +1,25 @@
+# List of stages for jobs, and their order of execution
+image: maven:3.5.2-jdk-8
+
+#Stages
+stages:          
+  - build
+  - test
+  - package
+
+# This job runs in the build stage, which runs first.
+build:
+  stage: build
+  script: mvn clean compile
+
+#Test Job
+test: 
+    stage: test
+    script: mvn test
+
+#Package Job
+package:
+    stage: package
+    script: mvn package
+    variables:
+        MAVEN_OPTS: "DskipTests=true"
