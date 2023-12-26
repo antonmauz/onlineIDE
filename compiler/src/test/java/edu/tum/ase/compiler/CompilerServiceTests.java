@@ -49,7 +49,7 @@ class CompilerServiceTest {
     @Test
     void should_SetCompilableTrue_When_FileTypeIsSupportedAndCompilationSucceeds() {
         // Arrange
-        //SourceCode sourceCode = new SourceCode();
+        SourceCode sourceCode = new SourceCode();
         sourceCode.setFileName("HelloWorld.java");
         sourceCode.setCode("public class HelloWorld { public static void main(String[] args) { System.out.println(\"Hello, World!\"); } }");
 
