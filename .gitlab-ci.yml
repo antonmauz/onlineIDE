@@ -1,5 +1,5 @@
-# List of stages for jobs, and their order of execution
-image: maven:3.5.2-jdk-8
+# List of images used in the pipeline
+image: maven:3.6.3-jdk-11
 
 #Stages
 stages:
