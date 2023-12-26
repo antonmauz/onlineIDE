@@ -1,5 +1,5 @@
 # List of images used in the pipeline
-image: maven:3.6.3-jdk-11
+image: maven:3.6.3-jdk-17
 
 #Stages
 stages:
