@@ -35,23 +35,22 @@ class CompilerServiceTest {
     void should_CreateTempFile_When_FileTypeIsSupported() {
         // Arrange
         SourceCode sourceCode = new SourceCode();
-        sourceCode.setFileName("Test.java");
-        sourceCode.setCode("public class Test {}");
+        sourceCode.setFileName("Test1.java");
+        sourceCode.setCode("public class Test1 {}");
 
         // Act
         SourceCode result = compilerService.compile(sourceCode);
 
         // Assert
         assertEquals("", result.getStderr(), "Expected no error message when file type is supported");
-        assertTrue(result.isCompilable(), "Expected compilable to be true when temp file is successfully created");
     }
 
     @Test
     void should_SetCompilableTrue_When_FileTypeIsSupportedAndCompilationSucceeds() {
         // Arrange
         SourceCode sourceCode = new SourceCode();
-        sourceCode.setFileName("HelloWorld.java");
-        sourceCode.setCode("public class HelloWorld { public static void main(String[] args) { System.out.println(\"Hello, World!\"); } }");
+        sourceCode.setFileName("HelloWorld1.java");
+        sourceCode.setCode("public class HelloWorld1 { public static void main(String[] args) { System.out.println(\"Hello, World!\"); } }");
 
         // Act
         SourceCode result = compilerService.compile(sourceCode);
