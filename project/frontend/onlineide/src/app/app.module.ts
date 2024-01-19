@@ -23,6 +23,8 @@ import { UserAuthenticationService } from './services/user-authentication.servic
 import { AuthorizationService } from './services/authorization.service';
 import { CodeEditorService } from './services/code-editor.service';
 import { CiCdService } from './services/ci-cd.service';
+import { MaterialModule } from './material/material.module';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [
@@ -44,7 +46,13 @@ import { CiCdService } from './services/ci-cd.service';
     CodeEditorService,
     CiCdService,
   ],
-  imports: [BrowserModule, AppRoutingModule, BrowserAnimationsModule],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MaterialModule,
+    MatButtonModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })
