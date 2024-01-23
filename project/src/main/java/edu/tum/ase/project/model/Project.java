@@ -19,6 +19,7 @@ public class Project {
     private String id;
     @Column(name = "name", nullable = false, unique = true)
     private String name;
+    @Column(name = "user_ids", unique = true, nullable = true)
 
     // ... additional members, often include @OneToMany mappings
     @OneToMany(mappedBy = "project", cascade = CascadeType.REMOVE)
@@ -44,4 +45,13 @@ public class Project {
     public void setName(String name) {
         this.name = name;
     }
+
+    // public Set<SourceFile> getSourceFiles() {
+    //     return sourceFiles;
+    // }
+
+    // public void setSourceFiles(Set<SourceFile> sourceFiles) {
+    //     this.sourceFiles = sourceFiles;
+    // }
+
 }

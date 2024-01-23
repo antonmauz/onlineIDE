@@ -1,0 +1,32 @@
+h4 {
+  color: #eee;
+  margin: 0;
+}
+
+mat-list-item {
+  padding: 0;
+}
+
+.row {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 100%;
+}
+
+.icon {
+  margin-right: 10px;
+  filter: invert(100%);
+  color: #eee;
+  height: 22px;
+  width: 22px;
+}
+
+mat-list-option[aria-selected="true"] {
+  background: rgba(0, 139, 139, 0.7);
+}
+
+.full-width {
+  width: 100%;
+  margin-bottom: 5px;
+}
