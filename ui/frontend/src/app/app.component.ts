@@ -7,9 +7,17 @@ import { FormsModule } from '@angular/forms';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [CommonModule, FormsModule, RouterOutlet, ProjectListComponent, RouterLink, RouterLinkActive, ProjectDetailsComponent],
+  imports: [
+    CommonModule,
+    FormsModule,
+    RouterOutlet,
+    ProjectListComponent,
+    RouterLink,
+    RouterLinkActive,
+    ProjectDetailsComponent,
+  ],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.css'
+  styleUrl: './app.component.css',
 })
 export class AppComponent {
   title = 'frontend';

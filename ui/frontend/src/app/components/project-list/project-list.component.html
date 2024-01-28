@@ -1,38 +1,46 @@
+<div class="project-management-container">
+  <h1>Project Management</h1>
+  <button mat-raised-button color="primary" (click)="addProject()">
+    Add Project
+  </button>
 
-  <div class="project-management-container">
-    <h1>Project Management</h1>
-    <button mat-raised-button color="primary" (click)="addProject()">Add Project</button>
+  <mat-table [dataSource]="projects" class="mat-elevation-z8">
+    <ng-container matColumnDef="id">
+      <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
+      <mat-cell *matCellDef="let project"> {{ project.id }} </mat-cell>
+    </ng-container>
 
-    <mat-table [dataSource]="projects" class="mat-elevation-z8">
-      <ng-container matColumnDef="id">
-        <mat-header-cell *matHeaderCellDef> ID </mat-header-cell>
-        <mat-cell *matCellDef="let project"> {{project.id}} </mat-cell>
-      </ng-container>
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
+      <mat-cell *matCellDef="let project"> {{ project.name }} </mat-cell>
+    </ng-container>
 
-      <ng-container matColumnDef="name">
-        <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
-        <mat-cell *matCellDef="let project"> {{project.name}} </mat-cell>
-      </ng-container>
+    <ng-container matColumnDef="users">
+      <mat-header-cell *matHeaderCellDef> Users </mat-header-cell>
+      <mat-cell *matCellDef="let project">1</mat-cell>
+    </ng-container>
 
-      <ng-container matColumnDef="users">
-        <mat-header-cell *matHeaderCellDef> Users </mat-header-cell>
-        <mat-cell *matCellDef="let project">1</mat-cell>
-      </ng-container>
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef> Action </mat-header-cell>
+      <mat-cell *matCellDef="let project">
+        <a
+          mat-button
+          [routerLink]="['/projects', project.id]"
+          routerLinkActive="active"
+          >Open</a
+        >
+        <button mat-button color="warn" (click)="deleteProject(project.id)">
+          Delete
+        </button>
+      </mat-cell>
+    </ng-container>
 
-      <ng-container matColumnDef="actions">
-        <mat-header-cell *matHeaderCellDef> Action </mat-header-cell>
-        <mat-cell *matCellDef="let project">
-          <a mat-button [routerLink]="['/projects', project.id]" routerLinkActive="active">Open</a>
-          <button mat-button color="warn" (click)="deleteProject(project.id)">Delete</button>
-        </mat-cell>
-      </ng-container>
-
-      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
-    </mat-table>
-    <!-- <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator> -->
-  </div>
-  <router-outlet></router-outlet>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns"></mat-row>
+  </mat-table>
+  <!-- <mat-paginator [pageSizeOptions]="[5, 10, 20]" showFirstLastButtons></mat-paginator> -->
+</div>
+<router-outlet></router-outlet>
 
 <!--
   <input [(ngModel)]="newProjectName">

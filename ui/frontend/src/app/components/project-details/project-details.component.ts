@@ -7,7 +7,12 @@ import { SourceFileListComponent } from '../source-file-list/source-file-list.co
 @Component({
   selector: 'app-project-details',
   standalone: true,
-  imports: [EditorComponent, MatSidenavModule, MatButtonModule, SourceFileListComponent],
+  imports: [
+    EditorComponent,
+    MatSidenavModule,
+    MatButtonModule,
+    SourceFileListComponent,
+  ],
   templateUrl: './project-details.component.html',
   styleUrl: './project-details.component.css',
 })

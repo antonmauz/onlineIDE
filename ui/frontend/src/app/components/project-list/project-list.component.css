@@ -1,8 +1,8 @@
 .project-management-container {
-    max-width: 100%;
-    margin-left: 10%;
-    margin-right: 10%;
-    margin-top: 80px;
+  max-width: 100%;
+  margin-left: 10%;
+  margin-right: 10%;
+  margin-top: 80px;
 }
 
 mat-cell {
@@ -11,4 +11,5 @@ mat-cell {
 
 mat-table {
   margin: 15px 0px 1px 0px;
-  min-width: 900px;}
+  min-width: 900px;
+}
