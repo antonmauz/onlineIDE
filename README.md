@@ -62,4 +62,9 @@ docker build -t compiler .
 docker run -p 8080:8080 compiler
 ```
 
-Replace compiler with project or ui to build and run the API server or the frontend, respectively.
+Replace compiler with project, dark-mode or ui to build and run the API server or the frontend, respectively.
+
+Alternatively, you can use Docker Compose to build and run all the services at once. Here is an example docker-compose.yaml:
+```sh
+docker-compose up
+```
