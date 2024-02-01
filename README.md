@@ -48,9 +48,8 @@ mvnw.cmd spring-boot:run
 ### Starting the Frontend
 Navigate to the ui/frontend/ directory, install the necessary dependencies, and start the server:
 ```sh
-cd ../ui/frontend/
-npm install
-ng serve
+cd ../ui/
+./mvnw spring-boot:run
 ```
 
 Now, you should be able to access the frontend at `http://localhost:4200`.
