@@ -70,9 +70,5 @@ export class ProjectListComponent {
       .subscribe(() => this.getProjects());
   }
 
-  openProject(projectId: string) {
-    // Logic to open a project by its ID
-  }
-
   //...
 }
