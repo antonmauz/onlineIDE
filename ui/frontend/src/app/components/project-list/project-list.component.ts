@@ -69,6 +69,4 @@ export class ProjectListComponent {
       .deleteProject(projectId)
       .subscribe(() => this.getProjects());
   }
-
-  //...
 }
