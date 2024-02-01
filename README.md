@@ -58,18 +58,15 @@ cd ui\
 mvnw.cmd spring-boot:run
 ```
 
-Now, you should be able to access the frontend at `http://localhost:4200`.
+Now, you should be able to access the frontend at `http://localhost:8083`.
 
 ## Docker (Optional)
-If you have Docker installed, you can use the provided Dockerfile in each directory to build a Docker image and run it:
-```sh
-docker build -t compiler .
-docker run -p 8080:8080 compiler
-```
+You can use Docker Compose to build and run all the services at once.
 
-Replace compiler with project, dark-mode or ui to build and run the API server or the frontend, respectively.
+To build and run all the services, use the following command:
 
-Alternatively, you can use Docker Compose to build and run all the services at once. Here is an example docker-compose.yaml:
 ```sh
 docker-compose up
 ```
+
+This configuration will build and run the project, compiler, ui, and dark-mode services, each on their own port, and all of them will be connected to the spring-network network.
