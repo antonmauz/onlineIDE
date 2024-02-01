@@ -18,7 +18,7 @@ export const routes: Routes = [
     component: ProjectListComponent,
     canActivate: [AuthGuard],
   },
-  { path: '**', redirectTo: '/' },
+  { path: '**', redirectTo: '/projects' },
 ];
 
 @NgModule({
