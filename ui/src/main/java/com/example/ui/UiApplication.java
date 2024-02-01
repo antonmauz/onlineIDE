@@ -23,26 +23,6 @@ public class UiApplication {
         SpringApplication.run(UiApplication.class, args);
     }
 
-    @Configuration
-    public class WebMvcConfiguration implements WebMvcConfigurer {
-        @Override
-        public void addResourceHandlers(ResourceHandlerRegistry registry) {
-            // Serve static resources
-            registry.addResourceHandler("/static/browser/**")
-                    .addResourceLocations("classpath:/static/browser/");
-        }
-
-    }
-
-    @Controller
-    public class ForwardToIndexController {
-
-        @RequestMapping(value = "/**/{[path:[^\\.]*}")
-        public String forward(HttpServletRequest request) {
-            return "forward:/index.html";
-        }
-    }
-
     @GetMapping("/api/authenticated")
     public boolean authenticated() {
         SecurityContext securityContext = SecurityContextHolder.getContext();
@@ -52,5 +32,24 @@ public class UiApplication {
                     .noneMatch(grantedAuthority -> grantedAuthority.getAuthority().equals("ROLE_ANONYMOUS"));
         }
         return false;
+    }
+}
+
+@Configuration
+class WebMvcConfiguration implements WebMvcConfigurer {
+    @Override
+    public void addResourceHandlers(ResourceHandlerRegistry registry) {
+        // Serve static resources
+        registry.addResourceHandler("/static/browser/**")
+                .addResourceLocations("classpath:/static/browser/");
+    }
+}
+
+@Controller
+class ForwardToIndexController {
+
+    @RequestMapping(value = "/**/{path:[^\\.]*}")
+    public String forward(HttpServletRequest request) {
+        return "forward:/index.html";
     }
 }
