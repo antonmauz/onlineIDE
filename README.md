@@ -41,7 +41,7 @@ cd ../project/
 
 For Windows:
 ```sh
-cd compiler\
+cd project\
 mvnw.cmd spring-boot:run
 ```
 
