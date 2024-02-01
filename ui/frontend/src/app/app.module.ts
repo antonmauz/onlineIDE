@@ -8,7 +8,7 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatTableModule } from '@angular/material/table';
 import { BrowserModule } from '@angular/platform-browser';
-import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+import { RouterModule } from '@angular/router'; // Import RouterModule
 
 import {
   MonacoEditorModule,
@@ -33,21 +33,19 @@ import { SourceFileListComponent } from './components/source-file-list/source-fi
     ProjectDetailsComponent,
   ],
   imports: [
+    CommonModule,
     BrowserModule,
+    FormsModule,
     AppRoutingModule,
     HttpClientModule,
     HttpClientXsrfModule,
     MonacoEditorModule,
-    CommonModule,
-    FormsModule,
     MatSidenavModule,
     MatButtonModule,
     MatListModule,
     MatTableModule,
     MatPaginatorModule,
-    RouterOutlet,
-    RouterLink,
-    RouterLinkActive,
+    RouterModule,
   ],
   providers: [
     AuthGuard,
