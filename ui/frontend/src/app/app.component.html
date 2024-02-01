@@ -1,3 +1,15 @@
 <div class="container">
+  <button
+    *ngIf="!(authService.authenticated | async)"
+    (click)="authService.login()"
+  >
+    Login
+  </button>
+  <button
+    *ngIf="authService.authenticated | async"
+    (click)="authService.logout()"
+  >
+    Logout
+  </button>
   <router-outlet></router-outlet>
 </div>
