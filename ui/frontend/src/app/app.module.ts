@@ -10,10 +10,7 @@ import { MatTableModule } from '@angular/material/table';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router'; // Import RouterModule
 
-import {
-  MonacoEditorModule,
-  NGX_MONACO_EDITOR_CONFIG,
-} from 'ngx-monaco-editor';
+import { MonacoEditorModule } from 'ngx-monaco-editor-v2';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -39,7 +36,7 @@ import { SourceFileListComponent } from './components/source-file-list/source-fi
     AppRoutingModule,
     HttpClientModule,
     HttpClientXsrfModule,
-    MonacoEditorModule,
+    MonacoEditorModule.forRoot(),
     MatSidenavModule,
     MatButtonModule,
     MatListModule,
@@ -47,11 +44,7 @@ import { SourceFileListComponent } from './components/source-file-list/source-fi
     MatPaginatorModule,
     RouterModule,
   ],
-  providers: [
-    AuthGuard,
-    AuthService,
-    { provide: NGX_MONACO_EDITOR_CONFIG, useValue: {} },
-  ],
+  providers: [AuthGuard, AuthService],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
