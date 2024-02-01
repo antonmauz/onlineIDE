@@ -29,12 +29,12 @@ public class UiApplication {
 
 	}
 
-@Controller
-public class ForwardToIndexController {
+    @Controller
+    public class ForwardToIndexController {
 
-    @RequestMapping(value = "/**/{[path:[^\\.]*}")
-    public String forward(HttpServletRequest request) {
-        return "forward:/index.html";
+        @RequestMapping(value = "/**/{[path:[^\\.]*}")
+        public String forward(HttpServletRequest request) {
+            return "forward:/index.html";
+        }
     }
-}
 }
