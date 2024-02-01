@@ -52,6 +52,12 @@ cd ../ui/
 ./mvnw spring-boot:run
 ```
 
+For Windows:
+```sh
+cd ui\
+mvnw.cmd spring-boot:run
+```
+
 Now, you should be able to access the frontend at `http://localhost:4200`.
 
 ## Docker (Optional)
