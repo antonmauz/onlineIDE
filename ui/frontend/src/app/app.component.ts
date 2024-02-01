@@ -1,9 +1,11 @@
-import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
-import { ProjectListComponent } from './components/project-list/project-list.component';
-import { ProjectDetailsComponent } from './components/project-details/project-details.component';
+import { Component } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { RouterLink, RouterLinkActive, RouterOutlet } from '@angular/router';
+
+import { ProjectDetailsComponent } from './components/project-details/project-details.component';
+import { ProjectListComponent } from './components/project-list/project-list.component';
+
 @Component({
   selector: 'app-root',
   standalone: true,
