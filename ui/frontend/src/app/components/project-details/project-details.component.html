@@ -1,13 +1,11 @@
-<mat-drawer-container>
-  <mat-drawer mode="side" opened>
+<div class="container">
+  <div class="sidebar">
     <button mat-raised-button color="primary" (click)="goBack()">Back</button>
     <app-source-file-list></app-source-file-list>
-  </mat-drawer>
-  <mat-drawer-content>
+  </div>
+  <div class="content">
     <div class="app-detail-content">
-      <button mat-raised-button color="primary" (click)="goBack()">Back</button>
-      <app-source-file-list></app-source-file-list>
       <app-editor></app-editor>
     </div>
-  </mat-drawer-content>
-</mat-drawer-container>
+  </div>
+</div>
