@@ -6,6 +6,9 @@ services:
     platform: linux/amd64
     networks:
       - spring-network
+    restart_policy:
+      condition: on-failure
+      max_attempts: 3
 
   compiler:
     build: compiler
@@ -14,6 +17,9 @@ services:
     platform: linux/amd64
     networks:
       - spring-network
+    restart_policy:
+      condition: on-failure
+      max_attempts: 3
 
   ui:
     build: ui
@@ -22,6 +28,9 @@ services:
     platform: linux/amd64
     networks:
       - spring-network
+    restart_policy:
+      condition: on-failure
+      max_attempts: 3
 
   dark-mode:
     build: dark-mode
@@ -30,6 +39,9 @@ services:
     platform: linux/amd64
     networks:
       - spring-network
+    restart_policy:
+      condition: on-failure
+      max_attempts: 3
 
 networks:
   spring-network:
