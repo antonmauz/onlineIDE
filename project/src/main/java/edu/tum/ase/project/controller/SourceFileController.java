@@ -11,7 +11,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import edu.tum.ase.project.model.Project;
 import edu.tum.ase.project.model.SourceFile;
+import edu.tum.ase.project.model.SourceFileDTO;
+import edu.tum.ase.project.repository.ProjectRepository;
 import edu.tum.ase.project.service.SourceFileService;
 
 @CrossOrigin(origins = "*", maxAge = 3600)
@@ -21,9 +24,22 @@ public class SourceFileController {
     @Autowired
     private SourceFileService sourceFileService;
 
+    @Autowired
+    private ProjectRepository projectRepository;
+
     @PostMapping
-    public SourceFile createSourceFile(@RequestBody SourceFile sourceFile) {
+    public SourceFile createSourceFile(@RequestBody SourceFileDTO sourceFileDTO) {
         System.out.println("Creating source file");
+
+        // Retrieve the projectId from the SourceFileDTO object
+        String projectId = sourceFileDTO.getProject();
+
+        Project project = projectRepository.findById(projectId)
+                .orElseThrow(() -> new RuntimeException("Project not found"));
+
+        // Create a new SourceFile object and set the fields from the SourceFileDTO
+        SourceFile sourceFile = new SourceFile(sourceFileDTO.getFileName(), sourceFileDTO.getSourceCode(), project);
+
         return sourceFileService.createSourceFile(sourceFile);
     }
 

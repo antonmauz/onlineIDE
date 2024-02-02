@@ -2,12 +2,12 @@ export class SourceFile {
   id: number;
   fileName: string;
   sourceCode: string;
-  project: number;
+  project: string;
   constructor(
     id: number,
     fileName: string,
     sourceCode: string,
-    project: number
+    project: string
   ) {
     this.id = id;
     this.fileName = fileName;

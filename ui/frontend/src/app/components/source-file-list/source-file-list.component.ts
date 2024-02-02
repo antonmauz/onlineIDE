@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { Project } from '../../classes/project/project';
+import { SourceFile } from '../../classes/sourceFile/sourceFile';
 import { ProjectService } from '../../services/project/project.service';
 
 @Component({
@@ -30,8 +31,13 @@ export class SourceFileListComponent {
   }
 
   addFile() {
-    // Add your logic here
-    console.log('File added!');
+    const newFile: Omit<SourceFile, 'id'> = {
+      fileName: `test-project-${Math.floor(Math.random() * 1000)}`,
+      sourceCode: 'function x() {\nconsole.log("Hello world!");\n}',
+      project: this.projectId ?? '',
+    };
+
+    this.projectService.addSourceFile(newFile); // .then(this.getProject.bind(this));
   }
 
   shareProject() {
