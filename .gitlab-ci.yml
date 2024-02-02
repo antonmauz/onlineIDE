@@ -70,7 +70,7 @@ package-project:
 package-ui:
   stage: package
   script:
-    - cd project
+    - cd ui
     - mvn package -DskipTests=true
     - cd ..
 
@@ -90,9 +90,9 @@ compiler:publish:
   variables:
     DOCKER_DRIVER: overlay2
     IMAGE_NAME: $CI_REGISTRY_IMAGE/compiler
-    only:
-      changes:
-        - compiler/**/*
+  only:
+    changes:
+      - compiler/**/*
 
 project:publish:
   stage: publish
@@ -102,12 +102,12 @@ project:publish:
   script:
     - cd project
     - docker login -u$CI_REGISTRY_USER -p$CI_REGISTRY_PASSWORD $CI_REGISTRY
-    - docker pull $PROJECT_IMAGE_NAME:latest || true
-    - docker build --tag $PROJECT_IMAGE_NAME:latest .
-    - docker push $PROJECT_IMAGE_NAME:latest
+    - docker pull $IMAGE_NAME:latest || true
+    - docker build --tag $IMAGE_NAME:latest .
+    - docker push $IMAGE_NAME:latest
   variables:
     DOCKER_DRIVER: overlay2
-    PROJECT_IMAGE_NAME: $CI_REGISTRY_IMAGE/project
+    IMAGE_NAME: $CI_REGISTRY_IMAGE/project
   only:
     changes:
       - project/**/*
@@ -120,12 +120,12 @@ ui:publish:
   script:
     - cd ui
     - docker login -u$CI_REGISTRY_USER -p$CI_REGISTRY_PASSWORD $CI_REGISTRY
-    - docker pull $UI_IMAGE_NAME:latest || true
-    - docker build --tag $UI_IMAGE_NAME:latest .
-    - docker push $UI_IMAGE_NAME:latest
+    - docker pull $IMAGE_NAME:latest || true
+    - docker build --tag $IMAGE_NAME:latest .
+    - docker push $IMAGE_NAME:latest
   variables:
     DOCKER_DRIVER: overlay2
-    UI_IMAGE_NAME: $CI_REGISTRY_IMAGE/ui
+    IMAGE_NAME: $CI_REGISTRY_IMAGE/ui
   only:
     changes:
       - ui/**/*
