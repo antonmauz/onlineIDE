@@ -29,21 +29,27 @@ build-compiler:
   script:
     - cd compiler
     - mvn clean compile
-    - cd ..
+  only:
+    changes:
+      - compiler/**/*
 
 build-project:
   stage: build
   script:
     - cd project
     - mvn clean compile
-    - cd ..
+  only:
+    changes:
+      - project/**/*
 
 build-ui:
   stage: build
   script:
     - cd ui
     - mvn clean compile
-    - cd ..
+  only:
+    changes:
+      - ui/**/*
 
 #Test Job
 test-compiler:
@@ -51,21 +57,27 @@ test-compiler:
   script:
     - cd compiler
     - mvn test
-    - cd ..
+  only:
+    changes:
+      - compiler/**/*
 
 test-project:
   stage: test
   script:
     - cd project
     - mvn test
-    - cd ..
+  only:
+    changes:
+      - project/**/*
 
 test-ui:
   stage: test
   script:
     - cd project
     - mvn test
-    - cd ..
+  only:
+    changes:
+      - ui/**/*
 
 #Package Job
 package-compiler:
@@ -73,21 +85,36 @@ package-compiler:
   script:
     - cd compiler
     - mvn package -DskipTests=true
-    - cd ..
+  artifacts:
+    paths:
+      - compiler/target/*.jar
+  only:
+    changes:
+      - compiler/**/*
 
 package-project:
   stage: package
   script:
     - cd project
     - mvn package -DskipTests=true
-    - cd ..
+  artifacts:
+    paths:
+      - project/target/*.jar
+  only:
+    changes:
+      - project/**/*
 
 package-ui:
   stage: package
   script:
     - cd ui
     - mvn package -DskipTests=true
-    - cd ..
+  artifacts:
+    paths:
+      - ui/target/*.jar
+  only:
+    changes:
+      - ui/**/*
 
 #Publish Job
 compiler:publish:
