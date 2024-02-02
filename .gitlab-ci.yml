@@ -177,13 +177,13 @@ deploy:gcp:
   stage: deploy
   image: debian-11-bullseye-v20231212
   script:
-    - echo "$SSH_PRIVATE_KEY" | tr -d '\r' > ssh-add -
+    - echo "$SSH_PRIVATE_KEY1" | tr -d '\r' > ssh-add -
     - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
     - scp -r docker-compose.yaml $SSH_HOST:~/
     - ssh $SSH_HOST "sudo docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY"
-    - ssh $SSH_HOST "sudo docker compose -f docker-compose-yaml pull && sudo docker compose -f docker-compose-yaml up --force-recreate -d"
+    - ssh $SSH_HOST "sudo docker compose -f docker-compose.yaml pull && sudo docker compose -f docker-compose.yaml up --force-recreate -d"
   variables:
-    SSH_HOST: mauzihno@35.226.186.246
+    SSH_HOST: antonmauz05@gmail.com@35.226.186.246
   only:
     refs:
       - main
