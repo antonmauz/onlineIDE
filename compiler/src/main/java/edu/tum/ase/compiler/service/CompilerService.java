@@ -65,12 +65,6 @@ public class CompilerService {
             // Delete temp file if needed
             tempFile.delete();
         }
-
-        boolean writeToFileSuceeded = writeToFile(sourceCode.getFileName(), sourceCode.getCode());
-        if (!writeToFileSuceeded) {
-            sourceCode.setStderr("Could not write to file");
-            return sourceCode;
-        }
         return sourceCode;
     }
 
@@ -125,25 +119,6 @@ public class CompilerService {
             builder.append(line).append("\n");
         }
         return builder.toString();
-    }
-
-    /**
-     * Writes the code to a file with the given name
-     * 
-     * @param fileName
-     * @param code
-     * @return true if the write succeeded, false otherwise
-     */
-    private boolean writeToFile(String fileName, String code) {
-        try {
-            FileWriter fileWriter = new FileWriter("compiled/" + fileName);
-            fileWriter.write(code);
-            fileWriter.close();
-            return true;
-        } catch (IOException e) {
-            e.printStackTrace();
-            return false;
-        }
     }
 }
 
