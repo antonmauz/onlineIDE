@@ -187,3 +187,4 @@ deploy:gcp:
   only:
     refs:
       - main
+      - continuous-deployment
