@@ -4,3 +4,6 @@ spring:
     active: dev
   datasource:
     url: ${DATABASE_URL:jdbc:h2:mem:testdb}
+
+server:
+  port: ${PORT:8080}

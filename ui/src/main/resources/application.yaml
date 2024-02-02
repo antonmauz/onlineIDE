@@ -21,3 +21,6 @@ spring:
             authorization-grant-type: authorization_code
             client-id: e524dae9467178fa924438f243413774819266c1915243750d91234b19d0d198
             client-secret: gloas-a7c46219519888969c9d489e21cc0237fd74bfaa11e9173b9bbf61c246f91b88
+
+server:
+  port: ${PORT:8083}
