@@ -7,6 +7,8 @@ import java.util.Set;
 
 import org.hibernate.annotations.GenericGenerator;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
+
 import jakarta.persistence.*;
 
 @Entity
@@ -19,9 +21,9 @@ public class Project {
     private String id;
     @Column(name = "name", nullable = false, unique = true)
     private String name;
-    @Column(name = "user_ids", unique = true, nullable = true)
 
     // ... additional members, often include @OneToMany mappings
+    @JsonManagedReference
     @OneToMany(mappedBy = "project", cascade = CascadeType.REMOVE)
     private Set<SourceFile> sourceFiles;
 
@@ -33,25 +35,25 @@ public class Project {
     public Project(String name) {
         this.name = name;
     }
+
     // getters and setters
     public String getId() {
         return id;
     }
+
     public String getName() {
         return name;
     }
-    public void setId(String id) { this.id = id; }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public void setName(String name) {
         this.name = name;
     }
 
-    // public Set<SourceFile> getSourceFiles() {
-    //     return sourceFiles;
-    // }
-
-    // public void setSourceFiles(Set<SourceFile> sourceFiles) {
-    //     this.sourceFiles = sourceFiles;
-    // }
-
+    public Set<SourceFile> getSourceFiles() {
+        return sourceFiles;
+    }
 }
