@@ -14,6 +14,7 @@ import { SourceFileService } from '../../services/sourceFile/source-file.service
 export class SourceFileListComponent {
   projectId: string | null = null;
   project: Project | undefined;
+  selectedFile: SourceFile | null = null;
 
   constructor(
     private projectService: ProjectService,
@@ -30,6 +31,9 @@ export class SourceFileListComponent {
   ngOnInit(): void {
     this.projectId = this.route.snapshot.paramMap.get('id');
     this.getProject();
+    this.sourceFileService.selectedFile.subscribe((file) => {
+      this.selectedFile = file;
+    });
   }
 
   selectFile(file: SourceFile) {

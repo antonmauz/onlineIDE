@@ -2,10 +2,11 @@
   <mat-list-item
     *ngFor="let file of project?.sourceFiles"
     (click)="selectFile(file)"
+    [class.selected-file]="file === selectedFile"
   >
     <div class="row">
       <img matListAvatar class="icon" src="/assets/file.png" alt="File" />
-      <h4 matLine>{{ file.name }}</h4>
+      <h4 matLine>{{ file.fileName }}</h4>
     </div>
   </mat-list-item>
 </mat-list>
