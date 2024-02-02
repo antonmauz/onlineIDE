@@ -56,6 +56,5 @@ public class ProjectE2ERestTest {
         result.andExpect(status().isOk())
         .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(createdProject.getId()))
         .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(createdProject.getName()));
-        
     }
 }

@@ -175,7 +175,7 @@ ui:publish:
 
 deploy:gcp:
   stage: deploy
-  image: debian-11-bullseye-v20231212
+  image: debian-11
   script:
     - echo "$SSH_PRIVATE_KEY1" | tr -d '\r' > ssh-add -
     - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
