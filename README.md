@@ -33,7 +33,7 @@ mvnw.cmd spring-boot:run
 ```
 
 ### Starting the API Server
-Navigate to the project/ directory and run the Maven Wrapper script:
+Navigate to the `project/` directory and run the Maven Wrapper script:
 ```sh
 cd ../project/
 ./mvnw spring-boot:run
@@ -46,7 +46,7 @@ mvnw.cmd spring-boot:run
 ```
 
 ### Starting the Frontend
-Navigate to the ui/frontend/ directory, install the necessary dependencies, and start the server:
+Navigate to the `ui/` directory, install the necessary dependencies, and start the server:
 ```sh
 cd ../ui/
 ./mvnw spring-boot:run
