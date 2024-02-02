@@ -49,7 +49,7 @@ export class ProjectListComponent {
     this.getProjects();
   }
 
-  displayedColumns: string[] = ['id', 'name', 'users', 'actions'];
+  displayedColumns: string[] = ['id', 'name', 'users', 'files', 'actions'];
   projects: Project[] = [];
 
   addProject() {
