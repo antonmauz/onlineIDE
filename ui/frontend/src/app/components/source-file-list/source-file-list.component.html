@@ -1,5 +1,8 @@
 <mat-list *ngIf="project?.sourceFiles?.length; else noFiles">
-  <mat-list-item *ngFor="let file of project?.sourceFiles">
+  <mat-list-item
+    *ngFor="let file of project?.sourceFiles"
+    (click)="selectFile(file)"
+  >
     <div class="row">
       <img matListAvatar class="icon" src="/assets/file.png" alt="File" />
       <h4 matLine>{{ file.name }}</h4>
