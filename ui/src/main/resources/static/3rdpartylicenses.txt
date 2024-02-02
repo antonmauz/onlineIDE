@@ -238,17 +238,7 @@ License: "MIT"
 
 
 --------------------------------------------------------------------------------
-Package: @angular/router
-License: "MIT"
-
-
---------------------------------------------------------------------------------
 Package: @angular/forms
-License: "MIT"
-
-
---------------------------------------------------------------------------------
-Package: ngx-monaco-editor
 License: "MIT"
 
 
@@ -279,11 +269,6 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 --------------------------------------------------------------------------------
-Package: @angular/animations
-License: "MIT"
-
-
---------------------------------------------------------------------------------
 Package: @angular/material
 License: "MIT"
 
@@ -308,6 +293,21 @@ AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
 LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
 OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
+
+--------------------------------------------------------------------------------
+Package: @angular/animations
+License: "MIT"
+
+
+--------------------------------------------------------------------------------
+Package: @angular/router
+License: "MIT"
+
+
+--------------------------------------------------------------------------------
+Package: ngx-monaco-editor-v2
+License: "MIT"
+
 
 --------------------------------------------------------------------------------
 Package: zone.js
