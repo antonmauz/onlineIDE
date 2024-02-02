@@ -1,6 +1,21 @@
 # List of images used in the pipeline
 image: maven:3.5.2-jdk-8
 
+variables:
+  MAVEN_OPTS: "-Dhttps.protocols=TLSv1.2 -Dmaven.repo.local=$CI_PROJECT_DIR.m2/repository -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn"
+  MAVEN_CLI_OPTS: "--batch-mode --errors --fail-at-end --show-version -DinstallAtEnd=true -DdeployAtEnd=true"
+
+cache:
+  paths:
+    - .m2/repository
+
+before_script:
+  - cd $CI_PROJECT_DIR
+
+after_script:
+  - cd $CI_PROJECT_DIR
+  - echo "End of Pipeline"
+
 #Stages
 stages:
   - build
