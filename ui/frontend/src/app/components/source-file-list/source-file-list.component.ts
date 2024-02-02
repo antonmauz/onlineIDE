@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Project } from '../../classes/project/project';
 import { SourceFile } from '../../classes/sourceFile/sourceFile';
 import { ProjectService } from '../../services/project/project.service';
+import { SourceFileService } from '../../services/sourceFile/source-file.service';
 
 @Component({
   selector: 'app-source-file-list',
@@ -13,10 +14,12 @@ import { ProjectService } from '../../services/project/project.service';
 export class SourceFileListComponent {
   projectId: string | null = null;
   project: Project | undefined;
+  selectedFile: SourceFile | null = null;
 
   constructor(
     private projectService: ProjectService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private sourceFileService: SourceFileService
   ) {}
 
   getProject() {
@@ -28,6 +31,13 @@ export class SourceFileListComponent {
   ngOnInit(): void {
     this.projectId = this.route.snapshot.paramMap.get('id');
     this.getProject();
+    this.sourceFileService.selectedFile.subscribe((file) => {
+      this.selectedFile = file;
+    });
+  }
+
+  selectFile(file: SourceFile) {
+    this.sourceFileService.selectFile(file);
   }
 
   addFile() {
@@ -37,7 +47,7 @@ export class SourceFileListComponent {
       project: this.projectId ?? '',
     };
 
-    this.projectService.addSourceFile(newFile); // .then(this.getProject.bind(this));
+    this.projectService.addSourceFile(newFile); // TODO @cdans .then(this.getProject.bind(this));
   }
 
   shareProject() {

@@ -30,3 +30,8 @@ mat-list-option[aria-selected="true"] {
   width: 100%;
   margin-bottom: 5px;
 }
+
+.selected-file {
+  background-color: #007acc;
+  border-radius: 2px;
+}
