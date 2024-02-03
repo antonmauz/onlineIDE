@@ -48,16 +48,6 @@ export class SourceFileListComponent {
     this.sourceFileService.selectFile(file);
   }
 
-  addFile() {
-    const newFile: Omit<SourceFile, 'id'> = {
-      fileName: `test-project-${Math.floor(Math.random() * 1000)}`,
-      sourceCode: 'function x() {\nconsole.log("Hello world!");\n}',
-      project: this.projectId ?? '',
-    };
-
-    this.projectService.addSourceFile(newFile); // TODO @cdans .then(this.getProject.bind(this));
-  }
-
   shareProject() {
     // Add your logic here
     console.log('Project shared!');

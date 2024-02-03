@@ -7,9 +7,15 @@
       id="modalInput"
       class="full-width"
       placeholder="Enter file name..."
+      [(ngModel)]="userInput"
     />
     <div class="row">
-      <button mat-raised-button color="primary" class="full-width">
+      <button
+        mat-raised-button
+        color="primary"
+        class="full-width"
+        (click)="addFile()"
+      >
         Add File
       </button>
 
