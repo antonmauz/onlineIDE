@@ -12,8 +12,10 @@ public class GatewayApplication {
 	public RouteLocator customRouteLocator(RouteLocatorBuilder builder) {
 		return builder.routes()
 				.route("project-service", r -> r.path("/project/**")
+						.filters(f -> f.rewritePath("/project/(?<segment>.*)", "/${segment}"))
 						.uri("lb://project-service"))
-				.route("ui-service", r -> r.path("/ui/**")
+				.route("ui-service", r -> r.path("/**")
+						.filters(f -> f.rewritePath("/ui/(?<segment>.*)", "/${segment}"))
 						.uri("lb://ui-service"))
 				.build();
 	}
