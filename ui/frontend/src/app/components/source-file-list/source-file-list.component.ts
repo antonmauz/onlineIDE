@@ -48,6 +48,12 @@ export class SourceFileListComponent {
     this.sourceFileService.selectFile(file);
   }
 
+  deleteFile(fileId: string) {
+    this.projectService.deleteFile(fileId).subscribe(() => {
+      this.getProject();
+    });
+  }
+
   shareProject() {
     // Add your logic here
     console.log('Project shared!');

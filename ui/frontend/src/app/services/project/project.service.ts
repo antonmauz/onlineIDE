@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 
-import { from, of } from 'rxjs';
+import {
+  from,
+  of,
+} from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
 import { PROJECT_BACKEND_URL } from '../../../../consts';
@@ -64,5 +67,20 @@ export class ProjectService {
       },
       body: JSON.stringify(file),
     }).then((response) => response.json());
+  }
+
+  deleteFile(fileId: string) {
+    return from(
+      fetch(`${PROJECT_BACKEND_URL}/sourcefiles/${fileId}`, {
+        method: 'DELETE',
+      })
+    ).pipe(
+      switchMap((res) => {
+        if (!res.ok) {
+          throw new Error(`Error deleting file with ID ${fileId}`);
+        }
+        return of(res);
+      })
+    );
   }
 }

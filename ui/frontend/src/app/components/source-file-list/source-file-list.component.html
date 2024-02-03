@@ -7,6 +7,14 @@
     <div class="row">
       <img matListAvatar class="icon" src="/assets/file.png" alt="File" />
       <h4 matLine>{{ file.fileName }}</h4>
+      <button
+        mat-raised-button
+        color="primary"
+        class="full-width"
+        (click)="deleteFile(file.id)"
+      >
+        Delete
+      </button>
     </div>
   </mat-list-item>
 </mat-list>
