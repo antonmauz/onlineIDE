@@ -1,4 +1,4 @@
-package edu.tum.ase.compiler.controller;
+package edu.tum.ase.compiler;
 
 import edu.tum.ase.compiler.model.SourceCode;
 import edu.tum.ase.compiler.service.CompilerService;
@@ -37,5 +37,5 @@ class CompilerControllerTest {
                 .content("{\"fileName\":\"test.java\",\"code\":\"public class Test {}\"}"))
                 .andExpect(status().isOk());
     }
-  
+
 }

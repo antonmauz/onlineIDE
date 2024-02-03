@@ -49,11 +49,11 @@ export class ProjectListComponent {
     this.getProjects();
   }
 
-  displayedColumns: string[] = ['id', 'name', 'users', 'actions'];
+  displayedColumns: string[] = ['id', 'name', 'users', 'files', 'actions'];
   projects: Project[] = [];
 
   addProject() {
-    const newProject: Omit<Project, 'id'> = {
+    const newProject: Omit<Project, 'id' | 'sourceFiles'> = {
       name: `${COLORS[Math.floor(Math.random() * COLORS.length)]} ${
         ANIMALS[Math.floor(Math.random() * ANIMALS.length)]
       }`,

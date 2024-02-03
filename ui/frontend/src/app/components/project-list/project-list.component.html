@@ -17,7 +17,14 @@
 
     <ng-container matColumnDef="users">
       <mat-header-cell *matHeaderCellDef> Users </mat-header-cell>
-      <mat-cell *matCellDef="let project">1</mat-cell>
+      <mat-cell *matCellDef="let project">2</mat-cell>
+    </ng-container>
+
+    <ng-container matColumnDef="files">
+      <mat-header-cell *matHeaderCellDef> Files </mat-header-cell>
+      <mat-cell *matCellDef="let project">{{
+        project.sourceFiles.length
+      }}</mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="actions">

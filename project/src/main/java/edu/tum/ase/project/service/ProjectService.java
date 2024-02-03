@@ -28,7 +28,7 @@ public class ProjectService {
         if (project.getId() == null) {
             return null;
         }
-    
+
         Optional<Project> existingProjectOpt = projectRepository.findById(project.getId());
         if (!existingProjectOpt.isPresent()) {
             return null;
@@ -41,8 +41,11 @@ public class ProjectService {
     }
 
     public Project findById(String id) {
-        return projectRepository.findById(id).get();
+        Optional<Project> optionalProject = projectRepository.findById(id);
+        if (!optionalProject.isPresent()) {
+            return null;
+        } else {
+            return optionalProject.get();
+        }
     }
-
-
 }

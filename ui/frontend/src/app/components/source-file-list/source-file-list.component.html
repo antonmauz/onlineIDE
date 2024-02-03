@@ -1,12 +1,33 @@
-<mat-list>
-  <mat-list-item>
+<h2 matline class="white-text">{{ project?.name }}</h2>
+<mat-list *ngIf="project?.sourceFiles?.length; else noFiles">
+  <mat-list-item
+    *ngFor="let file of project?.sourceFiles"
+    (click)="selectFile(file)"
+    [class.selected-file]="file === selectedFile"
+  >
     <div class="row">
       <img matListAvatar class="icon" src="/assets/file.png" alt="File" />
-      <h4 matLine>4</h4>
+      <h4 matLine>{{ file.fileName }}</h4>
     </div>
   </mat-list-item>
 </mat-list>
-<button mat-raised-button color="primary" class="full-width" (click)="addFile()">New file</button>
-<button mat-raised-button color="secondary" class="full-width" (click)="shareProject()">
+<button
+  mat-raised-button
+  color="primary"
+  class="full-width"
+  (click)="addFile()"
+>
+  New file
+</button>
+<button
+  mat-raised-button
+  color="secondary"
+  class="full-width"
+  (click)="shareProject()"
+>
   Share project
 </button>
+
+<ng-template #noFiles>
+  <h4 matLine class="white-text">No source files</h4>
+</ng-template>

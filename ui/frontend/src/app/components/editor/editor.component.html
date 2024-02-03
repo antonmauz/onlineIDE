@@ -1,4 +1,5 @@
 <ngx-monaco-editor
+  *ngIf="file"
   [options]="editorOptions"
-  [(ngModel)]="code"
+  [(ngModel)]="file.sourceCode"
 ></ngx-monaco-editor>
