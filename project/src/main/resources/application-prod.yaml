@@ -15,3 +15,6 @@ spring:
             non_contextual_creation: true # Fixes Hibernate issue with LOB creation
     hibernate:
       ddl-auto: update # `ddl-auto` property is used to automatically create the tables based on the entity classes
+  devtools:
+    restart:
+      enabled: false
