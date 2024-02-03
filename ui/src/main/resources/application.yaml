@@ -1,4 +1,6 @@
 spring:
+  application:
+    name: ui-service
   web:
     resources:
       static-locations: classpath:/static/browser

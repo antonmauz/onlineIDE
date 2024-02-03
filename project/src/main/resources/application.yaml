@@ -1,5 +1,7 @@
 # Sets the default application profile to development
 spring:
+  application:
+    name: project-service
   profiles:
     active: dev
   datasource:
