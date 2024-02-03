@@ -1,10 +1,10 @@
+package edu.tum.ase.project;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
-import edu.tum.ase.project.ProjectApplication;
 import org.springframework.test.context.ContextConfiguration;
-
 
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
@@ -38,24 +38,24 @@ public class ProjectE2ERestTest {
 
     @AfterEach
     public void tearDown() {
-    projectRepository.deleteAll();
+        projectRepository.deleteAll();
     }
 
     @Test
-    public void should_ReturnProject_When_PostWithProject() throws Exception{
-        //given
+    public void should_ReturnProject_When_PostWithProject() throws Exception {
+        // given
         Project project = new Project("Test-project");
         Project createdProject = projectRepository.save(project);
 
-        //when
+        // when
         ResultActions result = systemUnderTest.perform(post(URL)
-                    .content(objectMapper.writeValueAsString(project))
-                    .contentType(MediaType.APPLICATION_JSON));
+                .content(objectMapper.writeValueAsString(project))
+                .contentType(MediaType.APPLICATION_JSON));
 
-        //then
+        // then
         result.andExpect(status().isOk())
-        .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(createdProject.getId()))
-        .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(createdProject.getName()));
+                .andExpect(MockMvcResultMatchers.jsonPath("$.id").value(createdProject.getId()))
+                .andExpect(MockMvcResultMatchers.jsonPath("$.name").value(createdProject.getName()));
 
     }
 }
