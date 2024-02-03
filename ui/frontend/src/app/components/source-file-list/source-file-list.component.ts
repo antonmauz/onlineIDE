@@ -1,10 +1,16 @@
-import { Component } from '@angular/core';
+import {
+  Component,
+  ViewChild,
+} from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { Project } from '../../classes/project/project';
 import { SourceFile } from '../../classes/sourceFile/sourceFile';
 import { ProjectService } from '../../services/project/project.service';
-import { SourceFileService } from '../../services/sourceFile/source-file.service';
+import {
+  SourceFileService,
+} from '../../services/sourceFile/source-file.service';
+import { InputModalComponent } from '../input-modal/input-modal.component';
 
 @Component({
   selector: 'app-source-file-list',
@@ -12,6 +18,8 @@ import { SourceFileService } from '../../services/sourceFile/source-file.service
   styleUrl: './source-file-list.component.css',
 })
 export class SourceFileListComponent {
+  @ViewChild(InputModalComponent) inputModal!: InputModalComponent;
+
   projectId: string | null = null;
   project: Project | undefined;
   selectedFile: SourceFile | null = null;

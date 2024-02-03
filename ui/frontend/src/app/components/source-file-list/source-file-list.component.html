@@ -14,7 +14,7 @@
   mat-raised-button
   color="primary"
   class="full-width"
-  (click)="addFile()"
+  (click)="inputModal.openModal()"
 >
   New file
 </button>
@@ -26,6 +26,8 @@
 >
   Share project
 </button>
+
+<app-input-modal>#inputModal</app-input-modal>
 
 <ng-template #noFiles>
   <h4 matLine>No source files</h4>

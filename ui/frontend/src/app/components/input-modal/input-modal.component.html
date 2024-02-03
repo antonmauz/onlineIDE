@@ -1,0 +1,26 @@
+<div class="modal" *ngIf="showModal">
+  <div class="modal-content">
+    <button class="close-button" (click)="closeModal()">x</button>
+    <h4>Create a Source File</h4>
+    <input
+      type="text"
+      id="modalInput"
+      class="full-width"
+      placeholder="Enter file name..."
+    />
+    <div class="row">
+      <button mat-raised-button color="primary" class="full-width">
+        Add File
+      </button>
+
+      <button
+        mat-raised-button
+        color="secondary"
+        class="full-width"
+        (click)="closeModal()"
+      >
+        Cancel
+      </button>
+    </div>
+  </div>
+</div>
