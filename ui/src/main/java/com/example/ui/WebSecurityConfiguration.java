@@ -6,6 +6,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.oauth2.client.DefaultOAuth2ClientContext;
+import org.springframework.security.oauth2.client.OAuth2ClientContext;
+import org.springframework.security.oauth2.client.OAuth2RestOperations;
+import org.springframework.security.oauth2.client.OAuth2RestTemplate;
+import org.springframework.security.oauth2.client.token.grant.client.ClientCredentialsResourceDetails;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.csrf.*;
 
@@ -48,5 +53,16 @@ public class WebSecurityConfiguration {
         CookieCsrfTokenRepository repository = CookieCsrfTokenRepository.withHttpOnlyFalse();
         repository.setCookiePath("/");
         return repository;
+    }
+
+    @Bean
+    public OAuth2ClientContext oauth2ClientContext() {
+        return new DefaultOAuth2ClientContext();
+    }
+
+    @Bean
+    public OAuth2RestOperations restTemplate(OAuth2ClientContext context) {
+        ClientCredentialsResourceDetails details = new ClientCredentialsResourceDetails();
+        return new OAuth2RestTemplate(details, context);
     }
 }
