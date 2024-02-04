@@ -175,8 +175,9 @@ ui:publish:
 
 deploy:gcp:
   stage: deploy
-  image: alpine:latest
+  image: debian-11:latest
   script:
+    - eval "$(ssh-agent -s)"
     - echo "$SSH_PRIVATE_NEW" | tr -d '\r' | ssh-add -
     - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
     - scp -r docker-compose.yaml $SSH_HOST:~/
