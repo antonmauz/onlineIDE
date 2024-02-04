@@ -183,9 +183,9 @@ deploy:gcp:
     - chmod 700 ~/.ssh
     - echo "$SSH_PRIVATE_NEW" | tr -d '\r' | ssh-add -
     - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
-    - scp -r docker-compose.yaml $SSH_HOST:~/
+    - scp -r docker-compose.prod.yaml $SSH_HOST:~/
     - ssh $SSH_HOST "sudo docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY"
-    - ssh $SSH_HOST "sudo docker-compose -f docker-compose.yaml pull && sudo docker-compose -f docker-compose.yaml up --force-recreate -d"
+    - ssh $SSH_HOST "sudo docker-compose -f docker-compose.prod.yaml pull && sudo docker-compose -f docker-compose.prod.yaml up --force-recreate -d"
   variables:
     SSH_HOST: antonmauz05@35.226.186.246
   only:
