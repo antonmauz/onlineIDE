@@ -49,10 +49,7 @@ services:
       - COMPILER_URL=http://compiler:8082
 
   dark-mode:
-    build:
-      dockerfile: Dockerfile
-      context: ./dark-mode
-    image: dark-mode:latest
+    image: gitlab.lrz.de:5005/ase23-brueckelsee/onlineide/dark-mode:latest
     restart: on-failure:3
     ports:
       - "8081:8081"

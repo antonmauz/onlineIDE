@@ -173,6 +173,25 @@ ui:publish:
     changes:
       - ui/**/*
 
+dark-mode:publish:
+  stage: publish
+  image: docker:stable
+  services:
+    - docker:25.0.1-dind
+
+  script:
+    - cd dark-mode
+    - docker login -u$CI_REGISTRY_USER -p$CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker pull $IMAGE_NAME:latest || true
+    - docker build --tag $IMAGE_NAME:latest .
+    - docker push $IMAGE_NAME:latest
+  variables:
+    DOCKER_DRIVER: overlay2
+    IMAGE_NAME: $CI_REGISTRY_IMAGE/dark-mode
+  only:
+    changes:
+      - dark-mode/**/*
+
 deploy:gcp:
   stage: deploy
   image: debian-11:latest
