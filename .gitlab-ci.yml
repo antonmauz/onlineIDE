@@ -30,27 +30,27 @@ build-compiler:
   script:
     - cd compiler
     - mvn clean compile
-  #only:
-  # changes:
-  #  - compiler/**/*
+  only:
+    changes:
+      - compiler/**/*
 
 build-project:
   stage: build
   script:
     - cd project
     - mvn clean compile
-  #only:
-  # changes:
-  #  - project/**/*
+  only:
+    changes:
+      - project/**/*
 
 build-ui:
   stage: build
   script:
     - cd ui
     - mvn clean compile
-  #only:
-  # changes:
-  #  - ui/**/*
+  only:
+    changes:
+      - ui/**/*
 
 #Test Job
 test-compiler:
@@ -89,9 +89,9 @@ package-compiler:
   artifacts:
     paths:
       - compiler/target/*.jar
-  #only:
-  # changes:
-  #  - compiler/**/*
+  only:
+    changes:
+      - compiler/**/*
 
 package-project:
   stage: package
@@ -101,9 +101,9 @@ package-project:
   artifacts:
     paths:
       - project/target/*.jar
-  #only:
-  # changes:
-  #  - project/**/*
+  only:
+    changes:
+      - project/**/*
 
 package-ui:
   stage: package
@@ -113,9 +113,9 @@ package-ui:
   artifacts:
     paths:
       - ui/target/*.jar
-  #only:
-  # changes:
-  #  - ui/**/*
+  only:
+    changes:
+      - ui/**/*
 
 #Publish Job
 compiler:publish:
@@ -133,9 +133,9 @@ compiler:publish:
   variables:
     DOCKER_DRIVER: overlay2
     IMAGE_NAME: $CI_REGISTRY_IMAGE/compiler
-  #only:
-  # changes:
-  #  - compiler/**/*
+  only:
+    changes:
+      - compiler/**/*
 
 project:publish:
   stage: publish
@@ -151,9 +151,9 @@ project:publish:
   variables:
     DOCKER_DRIVER: overlay2
     IMAGE_NAME: $CI_REGISTRY_IMAGE/project
-  #only:
-  # changes:
-  #  - project/**/*
+  only:
+    changes:
+      - project/**/*
 
 ui:publish:
   stage: publish
@@ -169,9 +169,9 @@ ui:publish:
   variables:
     DOCKER_DRIVER: overlay2
     IMAGE_NAME: $CI_REGISTRY_IMAGE/ui
-  #only:
-  # changes:
-  #  - ui/**/*
+  only:
+    changes:
+      - ui/**/*
 
 deploy:gcp:
   stage: deploy
