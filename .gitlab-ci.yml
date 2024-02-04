@@ -52,6 +52,15 @@ build-ui:
     changes:
       - ui/**/*
 
+build-dark-mode:
+  stage: build
+  script:
+    - cd dark-mode
+    - mvn clean compile
+  only:
+    changes:
+      - dark-mode/**/*
+
 #Test Job
 test-compiler:
   stage: test
@@ -79,6 +88,15 @@ test-ui:
   only:
     changes:
       - ui/**/*
+
+test-dark-mode:
+  stage: test
+  script:
+    - cd dark-mode
+    - mvn test
+  only:
+    changes:
+      - darkmode/**/*
 
 #Package Job
 package-compiler:
@@ -116,6 +134,18 @@ package-ui:
   only:
     changes:
       - ui/**/*
+
+package-dark-mode:
+  stage: package
+  script:
+    - cd dark-mode
+    - mvn package -DskipTests=true
+  artifacts:
+    paths:
+      - dark-mode/target/*.jar
+  only:
+    changes:
+      - darkm-mode/**/*
 
 #Publish Job
 compiler:publish:
