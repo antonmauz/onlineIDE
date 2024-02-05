@@ -156,7 +156,7 @@ compiler:publish:
 
   script:
     - cd compiler
-    - docker login -u$CI_REGISTRY_USER -p$CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - docker pull $IMAGE_NAME:latest || true
     - docker build --tag $IMAGE_NAME:latest .
     - docker push $IMAGE_NAME:latest
@@ -174,7 +174,7 @@ project:publish:
     - docker:25.0.1-dind
   script:
     - cd project
-    - docker login -u$CI_REGISTRY_USER -p$CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - docker pull $IMAGE_NAME:latest || true
     - docker build --tag $IMAGE_NAME:latest .
     - docker push $IMAGE_NAME:latest
@@ -192,7 +192,7 @@ ui:publish:
     - docker:25.0.1-dind
   script:
     - cd ui
-    - docker login -u$CI_REGISTRY_USER -p$CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - docker pull $IMAGE_NAME:latest || true
     - docker build --tag $IMAGE_NAME:latest .
     - docker push $IMAGE_NAME:latest
@@ -211,7 +211,7 @@ dark-mode:publish:
 
   script:
     - cd dark-mode
-    - docker login -u$CI_REGISTRY_USER -p$CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
     - docker pull $IMAGE_NAME:latest || true
     - docker build --tag $IMAGE_NAME:latest .
     - docker push $IMAGE_NAME:latest
