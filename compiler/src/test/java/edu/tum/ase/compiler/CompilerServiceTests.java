@@ -77,7 +77,6 @@ class CompilerServiceTest {
         // Assert
         assertTrue(result.isCompilable(), "Expected compilable to be true when compilation succeeds");
         assertEquals("", result.getStderr(), "Expected no error message when compilation succeeds");
-        
     }
     
 }
