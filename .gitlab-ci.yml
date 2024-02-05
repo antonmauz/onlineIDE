@@ -174,10 +174,10 @@ project:publish:
     - docker:25.0.1-dind
   script:
     - cd project
-    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    - docker pull $IMAGE_NAME:latest || true
-    - docker build --tag $IMAGE_NAME:latest .
-    - docker push $IMAGE_NAME:latest
+    - sudo docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - sudo docker pull $IMAGE_NAME:latest || true
+    - sudo docker build --tag $IMAGE_NAME:latest .
+    - sudo docker push $IMAGE_NAME:latest
   variables:
     DOCKER_DRIVER: overlay2
     IMAGE_NAME: $CI_REGISTRY_IMAGE/project
@@ -192,10 +192,10 @@ ui:publish:
     - docker:25.0.1-dind
   script:
     - cd ui
-    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    - docker pull $IMAGE_NAME:latest || true
-    - docker build --tag $IMAGE_NAME:latest .
-    - docker push $IMAGE_NAME:latest
+    - sudo docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - sudo docker pull $IMAGE_NAME:latest || true
+    - sudo docker build --tag $IMAGE_NAME:latest .
+    - sudo docker push $IMAGE_NAME:latest
   variables:
     DOCKER_DRIVER: overlay2
     IMAGE_NAME: $CI_REGISTRY_IMAGE/ui
@@ -211,10 +211,10 @@ dark-mode:publish:
 
   script:
     - cd dark-mode
-    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    - docker pull $IMAGE_NAME:latest || true
-    - docker build --tag $IMAGE_NAME:latest .
-    - docker push $IMAGE_NAME:latest
+    - sudo docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - sudo docker pull $IMAGE_NAME:latest || true
+    - sudo docker build --tag $IMAGE_NAME:latest .
+    - sudo docker push $IMAGE_NAME:latest
   variables:
     DOCKER_DRIVER: overlay2
     IMAGE_NAME: $CI_REGISTRY_IMAGE/dark-mode
@@ -236,7 +236,7 @@ deploy:gcp:
     - ssh $SSH_HOST "sudo docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY"
     - ssh $SSH_HOST "sudo docker-compose -f docker-compose.prod.yaml pull && sudo docker-compose -f docker-compose.prod.yaml up --force-recreate -d"
   variables:
-    SSH_HOST: antonmauz05@34.70.37.104
+    SSH_HOST: antonmauz05@34.141.99.73
   only:
     refs:
       - main
