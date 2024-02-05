@@ -224,7 +224,7 @@ dark-mode:publish:
 
 deploy:gcp:
   stage: deploy
-  image: debian-11:latest
+  image: ubuntu:22.04
   script:
     - "which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )"
     - eval "$(ssh-agent -s)"

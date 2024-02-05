@@ -8,6 +8,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.junit.jupiter.api.extension.ExtendWith;
+import org.junit.jupiter.api.AfterEach;
+import java.io.File;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest
@@ -15,6 +17,23 @@ class CompilerServiceTest {
 
     @Autowired
     private CompilerService compilerService;
+
+   @AfterEach
+    void tearDown() {
+        deleteCompiledFile("HelloWorld1.class");
+        deleteCompiledFile("Test1.class");
+    }
+
+    private void deleteCompiledFile(String fileName) {
+        String compiledFilesDirectory = "compiled";
+        File compiledFile = new File(compiledFilesDirectory, fileName);
+        if (compiledFile.exists()) {
+             boolean deleted = compiledFile.delete();
+            if (!deleted) {
+                System.err.println("Failed to delete " + compiledFile.getAbsolutePath());
+            }
+        }
+    }
 
     @Test
     void should_ReturnError_When_FileTypeIsNotSupported() {
@@ -30,13 +49,13 @@ class CompilerServiceTest {
         assertEquals("File type not supported", result.getStderr());
         assertFalse(result.isCompilable());
     }
-/*
+
     @Test
     void should_CreateTempFile_When_FileTypeIsSupported() {
         // Arrange
         SourceCode sourceCode = new SourceCode();
         sourceCode.setFileName("Test1.java");
-        sourceCode.setCode("public class Test1 {}/n");
+        sourceCode.setCode("public class Test1 {}");
 
         // Act
         SourceCode result = compilerService.compile(sourceCode);
@@ -58,7 +77,6 @@ class CompilerServiceTest {
         // Assert
         assertTrue(result.isCompilable(), "Expected compilable to be true when compilation succeeds");
         assertEquals("", result.getStderr(), "Expected no error message when compilation succeeds");
-    
     }
-    */
+    
 }
