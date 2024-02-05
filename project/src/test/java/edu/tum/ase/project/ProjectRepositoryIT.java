@@ -46,6 +46,5 @@ public class ProjectRepositoryIT {
 
         // Then
         assertThat(foundProject).isNull();
-        
     }
 }
