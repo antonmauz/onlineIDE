@@ -236,7 +236,7 @@ deploy:gcp:
     - ssh $SSH_HOST "sudo docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY"
     - ssh $SSH_HOST "sudo docker-compose -f docker-compose.prod.yaml pull && sudo docker-compose -f docker-compose.prod.yaml up --force-recreate -d"
   variables:
-    SSH_HOST: antonmauz05@35.226.186.246
+    SSH_HOST: antonmauz05@34.70.37.104
   only:
     refs:
       - main
