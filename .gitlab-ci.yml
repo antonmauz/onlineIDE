@@ -156,10 +156,10 @@ compiler:publish:
 
   script:
     - cd compiler
-    - docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
-    - docker pull $IMAGE_NAME:latest || true
-    - docker build --tag $IMAGE_NAME:latest .
-    - docker push $IMAGE_NAME:latest
+    - sudo docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - sudo docker pull $IMAGE_NAME:latest || true
+    - sudo docker build --tag $IMAGE_NAME:latest .
+    - sudo docker push $IMAGE_NAME:latest
   variables:
     DOCKER_DRIVER: overlay2
     IMAGE_NAME: $CI_REGISTRY_IMAGE/compiler
