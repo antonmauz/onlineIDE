@@ -30,36 +30,36 @@ build-compiler:
   script:
     - cd compiler
     - mvn clean compile
-  #only:
-  # changes:
-  #  - compiler/**/*
+  only:
+    changes:
+      - compiler/**/*
 
 build-project:
   stage: build
   script:
     - cd project
     - mvn clean compile
-  #only:
-  # changes:
-  #  - project/**/*
+  only:
+    changes:
+      - project/**/*
 
 build-ui:
   stage: build
   script:
     - cd ui
     - mvn clean compile
-  #only:
-  # changes:
-  #  - ui/**/*
+  only:
+    changes:
+      - ui/**/*
 
 build-dark-mode:
   stage: build
   script:
     - cd dark-mode
     - mvn clean compile
-  #only:
-  # changes:
-  #  - dark-mode/**/*
+  only:
+    changes:
+      - dark-mode/**/*
 
 #Test Job
 test-compiler:
