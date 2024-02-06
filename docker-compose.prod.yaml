@@ -1,10 +1,7 @@
 version: "3.8"
 services:
   project:
-    build:
-      dockerfile: Dockerfile
-      context: ./project
-    image: project:latest
+    image: gitlab.lrz.de:5005/ase23-brueckelsee/onlineide/project:latest
     restart: on-failure:3
     ports:
       - "8080:8080"
@@ -24,10 +21,7 @@ services:
       POSTGRES_DB: my_db
 
   compiler:
-    build:
-      dockerfile: Dockerfile
-      context: ./compiler
-    image: compiler:latest
+    image: gitlab.lrz.de:5005/ase23-brueckelsee/onlineide/compiler
     restart: on-failure:3
     ports:
       - "8082:8082"
@@ -40,10 +34,7 @@ services:
       - PROJECT_URL=http://project:8080
 
   ui:
-    build:
-      dockerfile: Dockerfile
-      context: ./ui
-    image: ui:latest
+    image: gitlab.lrz.de:5005/ase23-brueckelsee/onlineide/ui:latest
     restart: on-failure:3
     ports:
       - "8083:8083"
@@ -58,10 +49,7 @@ services:
       - COMPILER_URL=http://compiler:8082
 
   dark-mode:
-    build:
-      dockerfile: Dockerfile
-      context: ./dark-mode
-    image: dark-mode:latest
+    image: gitlab.lrz.de:5005/ase23-brueckelsee/onlineide/dark-mode:latest
     restart: on-failure:3
     ports:
       - "8081:8081"
