@@ -32,5 +32,5 @@ export class EditorComponent {
     }
   }
 
-  editorOptions = { theme: 'vs-dark', language: 'javascript' };
+  editorOptions = { theme: 'vs-dark', language: 'java' };
 }
