@@ -38,7 +38,7 @@ public class SourceFileController {
                 .orElseThrow(() -> new RuntimeException("Project not found"));
 
         // Create a new SourceFile object and set the fields from the SourceFileDTO
-        SourceFile sourceFile = new SourceFile(sourceFileDTO.getFileName(), sourceFileDTO.getSourceCode(), project);
+        SourceFile sourceFile = new SourceFile(sourceFileDTO.getFileName(), sourceFileDTO.getCode(), project);
 
         return sourceFileService.createSourceFile(sourceFile);
     }
