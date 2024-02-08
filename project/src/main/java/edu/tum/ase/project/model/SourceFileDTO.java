@@ -2,7 +2,7 @@ package edu.tum.ase.project.model;
 
 public class SourceFileDTO {
     private String fileName;
-    private String sourceCode;
+    private String code;
     private String project;
 
     public String getFileName() {
@@ -13,7 +13,7 @@ public class SourceFileDTO {
         return project;
     }
 
-    public String getSourceCode() {
-        return sourceCode;
+    public String getCode() {
+        return code;
     }
 }

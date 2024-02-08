@@ -1,6 +1,7 @@
 package edu.tum.ase.compiler.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.RestController;
 import edu.tum.ase.compiler.model.SourceCode;
 import edu.tum.ase.compiler.service.CompilerService;
 
+@CrossOrigin(origins = "*", maxAge = 3600, allowedHeaders = "*")
 @RestController
 public class CompilerController {
     @Autowired
