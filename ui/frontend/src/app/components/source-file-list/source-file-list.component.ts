@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
 import { Project } from '../../classes/project/project';
-import { SourceFile } from '../../classes/sourceFile/sourceFile';
+import { CreateSourceFileDTO, SourceFile } from '../../classes/sourceFile/sourceFile';
 import { ProjectService } from '../../services/project/project.service';
 import { SourceFileService } from '../../services/sourceFile/source-file.service';
 
@@ -41,13 +41,15 @@ export class SourceFileListComponent {
   }
 
   addFile() {
-    const newFile: Omit<SourceFile, 'id'> = {
-      fileName: `test-project-${Math.floor(Math.random() * 1000)}`,
-      sourceCode: 'function x() {\nconsole.log("Hello world!");\n}',
+    const randomNumber = Math.floor(Math.random() * 1000);
+    const fileName = `HelloWorld${randomNumber}`;
+    const newFile: CreateSourceFileDTO = {
+      fileName: `HelloWorld${randomNumber}.java`,
+      code: `public class ${fileName} { public static void main(String[] args) { System.out.println(\"Hello, World!\"); } }`,
       project: this.projectId ?? '',
     };
 
-    this.projectService.addSourceFile(newFile); // TODO @cdans .then(this.getProject.bind(this));
+    this.projectService.addSourceFile(newFile).then(this.getProject.bind(this));
   }
 
   shareProject() {
