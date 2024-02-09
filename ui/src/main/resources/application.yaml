@@ -1,4 +1,6 @@
 spring:
+  application:
+    name: ui-service
   web:
     resources:
       static-locations: classpath:/static/browser
@@ -24,3 +26,8 @@ spring:
 
 server:
   port: ${PORT:8083}
+
+eureka:
+  client:
+    serviceUrl:
+      defaultZone: ${EUREKA_SERVER:http://localhost:8761/eureka}

@@ -2,7 +2,6 @@ package edu.tum.ase.project.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,7 +16,6 @@ import edu.tum.ase.project.model.SourceFileDTO;
 import edu.tum.ase.project.repository.ProjectRepository;
 import edu.tum.ase.project.service.SourceFileService;
 
-@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/sourcefiles")
 public class SourceFileController {
