@@ -12,6 +12,12 @@ spring:
             - Path=/project/**
           filters:
             - RewritePath=/project/(?<segment>.*), /$\{segment}
+        - id: compiler-service
+          uri: lb://compiler-service
+          predicates:
+            - Path=/compiler/**
+          filters:
+            - RewritePath=/compiler/(?<segment>.*), /$\{segment}
         - id: ui-service
           uri: lb://ui-service
           predicates:

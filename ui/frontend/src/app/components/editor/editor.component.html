@@ -1,5 +1,17 @@
+<button
+  mat-raised-button
+  color="primary"
+  class="full-width"
+  (click)="compile()"
+  ng-disabled="!file"
+>
+  Compile
+</button>
 <ngx-monaco-editor
   *ngIf="file"
   [options]="editorOptions"
-  [(ngModel)]="file.sourceCode"
+  [(ngModel)]="file.code"
 ></ngx-monaco-editor>
+<p class="output" *ngIf="compilationResult?.stdout">Output: {{ compilationResult?.stdout }}</p>
+<p class="output" *ngIf="compilationResult?.stderr">Error: {{ compilationResult?.stderr }}</p>
+<p class="output" *ngIf="!!compilationResult?.compilable">Successfully compiled...</p>

@@ -9,5 +9,4 @@ class UiApplicationTests {
 	@Test
 	void contextLoads() {
 	}
-
 }

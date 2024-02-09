@@ -1,11 +1,32 @@
 # List of images used in the pipeline
-image: maven:3.5.2-jdk-8
+image: maven:3.8.4-jdk-17
+
+variables:
+  MAVEN_OPTS: "-Dhttps.protocols=TLSv1.2 -Dmaven.repo.local=$CI_PROJECT_DIR.m2/repository -Dorg.slf4j.simpleLogger.log.org.apache.maven.cli.transfer.Slf4jMavenTransferListener=warn"
+  MAVEN_CLI_OPTS: "--batch-mode --errors --fail-at-end --show-version -DinstallAtEnd=true -DdeployAtEnd=true"
+
+workflow:
+  rules:
+    - if: $CI_COMMIT_BRANCH == "main"
+
+cache:
+  paths:
+    - .m2/repository
+
+before_script:
+  - cd $CI_PROJECT_DIR
+
+after_script:
+  - cd $CI_PROJECT_DIR
+  - echo "End of Pipeline"
 
 #Stages
 stages:
   - build
   - test
   - package
+  - publish
+  - deploy
 
 # This job runs in the build stage, which runs first.
 build-compiler:
@@ -13,14 +34,36 @@ build-compiler:
   script:
     - cd compiler
     - mvn clean compile
-    - cd ..
+  only:
+    changes:
+      - compiler/**/*
 
 build-project:
   stage: build
   script:
     - cd project
     - mvn clean compile
-    - cd ..
+  only:
+    changes:
+      - project/**/*
+
+build-ui:
+  stage: build
+  script:
+    - cd ui
+    - mvn clean compile
+  only:
+    changes:
+      - ui/**/*
+
+build-dark-mode:
+  stage: build
+  script:
+    - cd dark-mode
+    - mvn clean compile
+  only:
+    changes:
+      - dark-mode/**/*
 
 #Test Job
 test-compiler:
@@ -28,14 +71,36 @@ test-compiler:
   script:
     - cd compiler
     - mvn test
-    - cd ..
+  only:
+    changes:
+      - compiler/**/*
 
 test-project:
   stage: test
   script:
     - cd project
     - mvn test
-    - cd ..
+  only:
+    changes:
+      - project/**/*
+
+test-ui:
+  stage: test
+  script:
+    - cd project
+    - mvn test
+  only:
+    changes:
+      - ui/**/*
+
+test-dark-mode:
+  stage: test
+  script:
+    - cd dark-mode
+    - mvn test
+  only:
+    changes:
+      - darkmode/**/*
 
 #Package Job
 package-compiler:
@@ -43,11 +108,140 @@ package-compiler:
   script:
     - cd compiler
     - mvn package -DskipTests=true
-    - cd ..
+  artifacts:
+    paths:
+      - compiler/target/*.jar
+  only:
+    changes:
+      - compiler/**/*
 
 package-project:
   stage: package
   script:
     - cd project
     - mvn package -DskipTests=true
-    - cd ..
+  artifacts:
+    paths:
+      - project/target/*.jar
+  only:
+    changes:
+      - project/**/*
+
+package-ui:
+  stage: package
+  script:
+    - cd ui
+    - mvn package -DskipTests=true
+  artifacts:
+    paths:
+      - ui/target/*.jar
+  only:
+    changes:
+      - ui/**/*
+
+package-dark-mode:
+  stage: package
+  script:
+    - cd dark-mode
+    - mvn package -DskipTests=true
+  artifacts:
+    paths:
+      - dark-mode/target/*.jar
+  only:
+    changes:
+      - darkm-mode/**/*
+
+#Publish Job
+compiler:publish:
+  stage: publish
+  image: docker:stable
+  services:
+    - docker:25.0.1-dind
+
+  script:
+    - cd compiler
+    - sudo docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - sudo docker pull $IMAGE_NAME:latest || true
+    - sudo docker build --tag $IMAGE_NAME:latest .
+    - sudo docker push $IMAGE_NAME:latest
+  variables:
+    DOCKER_DRIVER: overlay2
+    IMAGE_NAME: $CI_REGISTRY_IMAGE/compiler
+  only:
+    changes:
+      - compiler/**/*
+
+project:publish:
+  stage: publish
+  image: docker:stable
+  services:
+    - docker:25.0.1-dind
+  script:
+    - cd project
+    - sudo docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - sudo docker pull $IMAGE_NAME:latest || true
+    - sudo docker build --tag $IMAGE_NAME:latest .
+    - sudo docker push $IMAGE_NAME:latest
+  variables:
+    DOCKER_DRIVER: overlay2
+    IMAGE_NAME: $CI_REGISTRY_IMAGE/project
+  only:
+    changes:
+      - project/**/*
+
+ui:publish:
+  stage: publish
+  image: docker:stable
+  services:
+    - docker:25.0.1-dind
+  script:
+    - cd ui
+    - sudo docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - sudo docker pull $IMAGE_NAME:latest || true
+    - sudo docker build --tag $IMAGE_NAME:latest .
+    - sudo docker push $IMAGE_NAME:latest
+  variables:
+    DOCKER_DRIVER: overlay2
+    IMAGE_NAME: $CI_REGISTRY_IMAGE/ui
+  only:
+    changes:
+      - ui/**/*
+
+dark-mode:publish:
+  stage: publish
+  image: docker:stable
+  services:
+    - docker:25.0.1-dind
+
+  script:
+    - cd dark-mode
+    - sudo docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - sudo docker pull $IMAGE_NAME:latest || true
+    - sudo docker build --tag $IMAGE_NAME:latest .
+    - sudo docker push $IMAGE_NAME:latest
+  variables:
+    DOCKER_DRIVER: overlay2
+    IMAGE_NAME: $CI_REGISTRY_IMAGE/dark-mode
+  only:
+    changes:
+      - dark-mode/**/*
+
+deploy:gcp:
+  stage: deploy
+  image: ubuntu:22.04
+  script:
+    - "which ssh-agent || ( apt-get update -y && apt-get install openssh-client -y )"
+    - eval "$(ssh-agent -s)"
+    - mkdir -p ~/.ssh
+    - chmod 700 ~/.ssh
+    - echo "$SSH_PRIVATE_NEW" | tr -d '\r' | ssh-add -
+    - echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config
+    - scp -r docker-compose.prod.yaml $SSH_HOST:~/
+    - ssh $SSH_HOST "sudo docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY"
+    - ssh $SSH_HOST "sudo docker compose -f docker-compose.prod.yaml pull && sudo docker compose -f docker-compose.prod.yaml up --force-recreate -d"
+  variables:
+    SSH_HOST: antonmauz05@34.141.99.73
+  only:
+    refs:
+      - main
+      - continuous_deployment

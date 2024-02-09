@@ -18,8 +18,8 @@ public class SourceFile {
     @Column(name = "file_name", nullable = false, unique = true)
     private String fileName;
 
-    @Column(name = "source_code", nullable = false)
-    private String sourceCode;
+    @Column(name = "code", nullable = false)
+    private String code;
 
     @ManyToOne
     @JsonBackReference
@@ -31,9 +31,9 @@ public class SourceFile {
         // this one is protected since it shouldn't be used directly
     }
 
-    public SourceFile(String fileName, String sourceCode, Project project) {
+    public SourceFile(String fileName, String code, Project project) {
         this.fileName = fileName;
-        this.sourceCode = sourceCode;
+        this.code = code;
         this.project = project;
     }
 
@@ -46,8 +46,8 @@ public class SourceFile {
         return fileName;
     }
 
-    public String getSourceCode() {
-        return sourceCode;
+    public String getCode() {
+        return code;
     }
 
     public Project getProject() {
@@ -62,8 +62,8 @@ public class SourceFile {
         this.fileName = fileName;
     }
 
-    public void setSourceCode(String sourceCode) {
-        this.sourceCode = sourceCode;
+    public void setCode(String code) {
+        this.code = code;
     }
 
     public void setProject(Project project) {
