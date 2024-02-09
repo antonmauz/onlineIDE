@@ -65,6 +65,24 @@ build-dark-mode:
     changes:
       - dark-mode/**/*
 
+build-discoveryserver:
+  stage: build
+  script:
+    - cd discoveryserver
+    - mvn clean compile
+  only:
+    changes:
+      - discoveryserver/**/*
+
+build-gateway:
+  stage: build
+  script:
+    - cd gateway
+    - mvn clean compile
+  only:
+    changes:
+      - gateway/**/*
+
 #Test Job
 test-compiler:
   stage: test
@@ -101,6 +119,24 @@ test-dark-mode:
   only:
     changes:
       - darkmode/**/*
+
+test-discoveryserver:
+  stage: test
+  script:
+    - cd discoveryserver
+    - mvn test
+  only:
+    changes:
+      - discoveryserver/**/*
+
+test-gateway:
+  stage: test
+  script:
+    - cd gateway
+    - mvn test
+  only:
+    changes:
+      - gateway/**/*
 
 #Package Job
 package-compiler:
@@ -149,7 +185,31 @@ package-dark-mode:
       - dark-mode/target/*.jar
   only:
     changes:
-      - darkm-mode/**/*
+      - dark-mode/**/*
+
+package-discoveryserver:
+  stage: package
+  script:
+    - cd discoveryserver
+    - mvn package -DskipTests=true
+  artifacts:
+    paths:
+      - discoveryserver/target/*.jar
+  only:
+    changes:
+      - discoveryserver/**/*
+
+package-gateway:
+  stage: package
+  script:
+    - cd gateway
+    - mvn package -DskipTests=true
+  artifacts:
+    paths:
+      - gateway/target/*.jar
+  only:
+    changes:
+      - gateway/**/*
 
 #Publish Job
 compiler:publish:
@@ -226,6 +286,43 @@ dark-mode:publish:
     changes:
       - dark-mode/**/*
 
+discoveryserver:publish:
+  stage: publish
+  image: docker:stable
+  services:
+    - docker:25.0.1-dind
+  script:
+    - cd discoveryserver
+    - sudo docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - sudo docker pull $IMAGE_NAME:latest || true
+    - sudo docker build --tag $IMAGE_NAME:latest .
+    - sudo docker push $IMAGE_NAME:latest
+  variables:
+    DOCKER_DRIVER: overlay2
+    IMAGE_NAME: $CI_REGISTRY_IMAGE/discoveryserver
+  only:
+    changes:
+      - discoveryserver/**/*
+
+gateway:publish:
+  stage: publish
+  image: docker:stable
+  services:
+    - docker:25.0.1-dind
+  script:
+    - cd gateway
+    - sudo docker login -u $CI_REGISTRY_USER -p $CI_REGISTRY_PASSWORD $CI_REGISTRY
+    - sudo docker pull $IMAGE_NAME:latest || true
+    - sudo docker build --tag $IMAGE_NAME:latest .
+    - sudo docker push $IMAGE_NAME:latest
+  variables:
+    DOCKER_DRIVER: overlay2
+    IMAGE_NAME: $CI_REGISTRY_IMAGE/gateway
+  only:
+    changes:
+      - gateway/**/*
+
+### Deploy
 deploy:gcp:
   stage: deploy
   image: ubuntu:22.04

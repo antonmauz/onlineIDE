@@ -13,8 +13,10 @@ services:
       - spring-network
     depends_on:
       - db
+      - gateway
     environment:
       - JDBC_URL=jdbc:postgresql://db:5432/my_db?user=admin&password=test
+      - DISCOVERYSERVER_URL=http://discoveryserver:8761
 
   db:
     image: postgres:16
@@ -56,6 +58,34 @@ services:
     environment:
       - PROJECT_URL=http://project:8080
       - COMPILER_URL=http://compiler:8082
+
+  discoveryserver:
+    build:
+      dockerfile: Dockerfile
+      context: ./discoveryserver
+    image: discoveryserver:latest
+    restart: on-failure:3
+    ports:
+      - "8761:8761"
+    platform: linux/amd64
+    networks:
+      - spring-network
+
+  gateway:
+    build:
+      dockerfile: Dockerfile
+      context: ./gateway
+    image: gateway:latest
+    restart: on-failure:3
+    ports:
+      - "8000:8000" # Choose an appropriate port that doesn't conflict with others
+    platform: linux/amd64
+    networks:
+      - spring-network
+    depends_on:
+      - discoveryserver
+    environment:
+      - DISCOVERYSERVER_URL=http://discoveryserver:8761
 
   dark-mode:
     build:
