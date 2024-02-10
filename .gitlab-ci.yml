@@ -51,7 +51,7 @@ build-ui:
   stage: build
   script:
     - cd ui
-    - mvn clean compile
+    - mvn -X clean compile
   only:
     changes:
       - ui/**/*
