@@ -65,4 +65,29 @@ export class ProjectService {
       body: JSON.stringify(file),
     }).then((response) => response.json());
   }
+
+  async updateSourceFile(file: SourceFile) {
+    return await fetch(`${PROJECT_BACKEND_URL}/sourcefiles/${file.id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(file),
+    }).then((response) => response.json());
+  }
+
+  deleteFile(fileId: string) {
+    return from(
+      fetch(`${PROJECT_BACKEND_URL}/sourcefiles/${fileId}`, {
+        method: 'DELETE',
+      })
+    ).pipe(
+      switchMap((res) => {
+        if (!res.ok) {
+          throw new Error(`Error deleting file with ID ${fileId}`);
+        }
+        return of(res);
+      })
+    );
+  }
 }

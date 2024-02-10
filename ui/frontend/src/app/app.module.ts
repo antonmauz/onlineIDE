@@ -4,6 +4,7 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatListModule } from '@angular/material/list';
+import { MatMenuModule } from '@angular/material/menu';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatTableModule } from '@angular/material/table';
@@ -17,6 +18,7 @@ import { AppComponent } from './app.component';
 import { AuthGuard } from './auth.guard';
 import { AuthService } from './auth.service';
 import { EditorComponent } from './components/editor/editor.component';
+import { InputModalComponent } from './components/input-modal/input-modal.component';
 import { ProjectDetailsComponent } from './components/project-details/project-details.component';
 import { ProjectListComponent } from './components/project-list/project-list.component';
 import { SourceFileListComponent } from './components/source-file-list/source-file-list.component';
@@ -28,6 +30,7 @@ import { SourceFileListComponent } from './components/source-file-list/source-fi
     ProjectListComponent,
     SourceFileListComponent,
     ProjectDetailsComponent,
+    InputModalComponent,
   ],
   imports: [
     CommonModule,
@@ -41,6 +44,7 @@ import { SourceFileListComponent } from './components/source-file-list/source-fi
     MatButtonModule,
     MatListModule,
     MatTableModule,
+    MatMenuModule,
     MatPaginatorModule,
     RouterModule,
   ],

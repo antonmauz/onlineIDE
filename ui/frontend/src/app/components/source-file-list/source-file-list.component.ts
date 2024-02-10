@@ -1,10 +1,12 @@
-import { Component } from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { MatMenuTrigger } from '@angular/material/menu';
 import { ActivatedRoute } from '@angular/router';
 
 import { Project } from '../../classes/project/project';
-import { CreateSourceFileDTO, SourceFile } from '../../classes/sourceFile/sourceFile';
+import { SourceFile } from '../../classes/sourceFile/sourceFile';
 import { ProjectService } from '../../services/project/project.service';
 import { SourceFileService } from '../../services/sourceFile/source-file.service';
+import { InputModalComponent } from '../input-modal/input-modal.component';
 
 @Component({
   selector: 'app-source-file-list',
@@ -12,9 +14,14 @@ import { SourceFileService } from '../../services/sourceFile/source-file.service
   styleUrl: './source-file-list.component.css',
 })
 export class SourceFileListComponent {
+  @ViewChild(InputModalComponent) inputModal!: InputModalComponent;
+  @ViewChild(MatMenuTrigger, { static: true }) matMenuTrigger!: MatMenuTrigger;
+
   projectId: string | null = null;
   project: Project | undefined;
   selectedFile: SourceFile | null = null;
+  menuTopLeftPosition = { x: 0, y: 0 };
+  trigger: MatMenuTrigger | undefined;
 
   constructor(
     private projectService: ProjectService,
@@ -40,16 +47,21 @@ export class SourceFileListComponent {
     this.sourceFileService.selectFile(file);
   }
 
-  addFile() {
-    const randomNumber = Math.floor(Math.random() * 1000);
-    const fileName = `HelloWorld${randomNumber}`;
-    const newFile: CreateSourceFileDTO = {
-      fileName: `HelloWorld${randomNumber}.java`,
-      code: `public class ${fileName} { public static void main(String[] args) { System.out.println(\"Hello, World!\"); } }`,
-      project: this.projectId ?? '',
-    };
+  deleteFile(fileId: string) {
+    this.projectService.deleteFile(fileId).subscribe(() => {
+      this.getProject();
+    });
+  }
 
-    this.projectService.addSourceFile(newFile).then(this.getProject.bind(this));
+  openMenu(event: MouseEvent, file: SourceFile, trigger: MatMenuTrigger): void {
+    event.preventDefault();
+    this.selectFile(file);
+
+    this.menuTopLeftPosition.x = event.clientX;
+    this.menuTopLeftPosition.y = event.clientY;
+
+    this.trigger = trigger;
+    this.trigger.openMenu();
   }
 
   shareProject() {

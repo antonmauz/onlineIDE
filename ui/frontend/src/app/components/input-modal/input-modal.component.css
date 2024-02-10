@@ -1,0 +1,38 @@
+.modal {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1000;
+}
+
+button {
+  margin: 10px;
+}
+
+.modal-content {
+  position: relative;
+  margin: auto;
+  padding: 20px;
+  width: 70%;
+  max-width: 700px;
+  background-color: rgb(149, 100, 186);
+}
+
+.close-button {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+  font-size: 1em;
+}
+
+#modalInput {
+  padding: 10px;
+  width: 100%;
+  margin-bottom: 10px;
+  box-sizing: border-box;
+}
