@@ -24,7 +24,6 @@ public class GatewayApplication {
         return ReactiveSecurityContextHolder.getContext()
                 .map(securityContext -> {
                     Authentication authentication = securityContext.getAuthentication();
-                    System.out.println("SecurityContext: " + securityContext);
                     if (authentication != null) {
                         System.out.println("Authentication: " + authentication);
                         System.out.println("Authorities: " + authentication.getAuthorities());
