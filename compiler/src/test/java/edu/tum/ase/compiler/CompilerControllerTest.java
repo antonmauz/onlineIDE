@@ -35,7 +35,7 @@ class CompilerControllerTest {
         mockMvc.perform(post("/compile")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\"fileName\":\"test.java\",\"code\":\"public class Test {}\"}"))
-                .andExpect(status().isOk());
-    }
+                .andExpect(status().isOk()); 
 
+    }
 }

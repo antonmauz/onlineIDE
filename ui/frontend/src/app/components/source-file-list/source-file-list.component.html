@@ -1,3 +1,4 @@
+<h2 matline class="white-text">{{ project?.name }}</h2>
 <mat-list *ngIf="project?.sourceFiles?.length; else noFiles">
   <ng-container *ngFor="let file of project?.sourceFiles">
     <mat-list-item
@@ -42,5 +43,5 @@
 <app-input-modal>(addFileEvent)="addFile($event)"</app-input-modal>
 
 <ng-template #noFiles>
-  <h4 matLine>No source files</h4>
+  <h4 matLine class="white-text">No source files</h4>
 </ng-template>

@@ -56,6 +56,10 @@ public class CompilerService {
             String stderr = readStream(process.getErrorStream());
             process.waitFor(); // Wait for the process to complete
 
+            //Strip the temp file name from the output
+            stdout = stdout.replace(tempFile.getAbsolutePath(), sourceCode.getFileName());
+            stderr = stderr.replace(tempFile.getAbsolutePath(), sourceCode.getFileName());
+
             sourceCode.setStdout(stdout);
             sourceCode.setStderr(stderr);
             sourceCode.setCompilable(process.exitValue() == 0);

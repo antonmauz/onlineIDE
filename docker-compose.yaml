@@ -1,47 +1,111 @@
+version: "3.8"
 services:
   project:
-    build: project
+    build:
+      dockerfile: Dockerfile
+      context: ./project
+    image: project:latest
+    restart: on-failure:3
     ports:
       - "8080:8080"
     platform: linux/amd64
     networks:
       - spring-network
-    restart_policy:
-      condition: on-failure
-      max_attempts: 3
+    depends_on:
+      - db
+      - gateway
+    environment:
+      - JDBC_URL=jdbc:postgresql://db:5432/my_db?user=admin&password=test
+      - DISCOVERYSERVER_URL=http://discoveryserver:8761
+
+  db:
+    image: postgres:16
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: test
+      POSTGRES_DB: my_db
 
   compiler:
-    build: compiler
+    build:
+      dockerfile: Dockerfile
+      context: ./compiler
+    image: compiler:latest
+    restart: on-failure:3
     ports:
       - "8082:8082"
     platform: linux/amd64
     networks:
       - spring-network
-    restart_policy:
-      condition: on-failure
-      max_attempts: 3
+    depends_on:
+      - project
+    environment:
+      - PROJECT_URL=http://project:8080
 
   ui:
-    build: ui
+    build:
+      dockerfile: Dockerfile
+      context: ./ui
+    image: ui:latest
+    restart: on-failure:3
     ports:
       - "8083:8083"
     platform: linux/amd64
     networks:
       - spring-network
-    restart_policy:
-      condition: on-failure
-      max_attempts: 3
+    depends_on:
+      - project
+      - compiler
+    environment:
+      - PROJECT_URL=http://project:8080
+      - COMPILER_URL=http://compiler:8082
+
+  discoveryserver:
+    build:
+      dockerfile: Dockerfile
+      context: ./discoveryserver
+    image: discoveryserver:latest
+    restart: on-failure:3
+    ports:
+      - "8761:8761"
+    platform: linux/amd64
+    networks:
+      - spring-network
+
+  gateway:
+    build:
+      dockerfile: Dockerfile
+      context: ./gateway
+    image: gateway:latest
+    restart: on-failure:3
+    ports:
+      - "8000:8000" # Choose an appropriate port that doesn't conflict with others
+    platform: linux/amd64
+    networks:
+      - spring-network
+    depends_on:
+      - discoveryserver
+    environment:
+      - DISCOVERYSERVER_URL=http://discoveryserver:8761
 
   dark-mode:
-    build: dark-mode
+    build:
+      dockerfile: Dockerfile
+      context: ./dark-mode
+    image: dark-mode:latest
+    restart: on-failure:3
     ports:
       - "8081:8081"
     platform: linux/amd64
     networks:
       - spring-network
-    restart_policy:
-      condition: on-failure
-      max_attempts: 3
+    depends_on:
+      - project
+      - compiler
+      - ui
+    environment:
+      - PROJECT_URL=http://project:8080
+      - COMPILER_URL=http://compiler:8082
+      - UI_URL=http://ui:8083
 
 networks:
   spring-network:

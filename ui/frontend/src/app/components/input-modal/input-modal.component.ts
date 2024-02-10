@@ -1,7 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 
-import { SourceFile } from '../../classes/sourceFile/sourceFile';
+import { CreateSourceFileDTO } from '../../classes/sourceFile/sourceFile';
 import { ProjectService } from '../../services/project/project.service';
 
 @Component({
@@ -28,9 +28,9 @@ export class InputModalComponent {
   addFile() {
     this.addFileEvent.emit(this.userInput);
 
-    const newFile: Omit<SourceFile, 'id'> = {
+    const newFile: CreateSourceFileDTO = {
       fileName: this.userInput,
-      sourceCode: 'function x() {\nconsole.log("Hello world!");\n}',
+      code: `public class ${this.userInput} { public static void main(String[] args) { System.out.println(\"Hello, World!\"); } }`,
       project: this.projectId ?? '',
     };
 
@@ -38,7 +38,8 @@ export class InputModalComponent {
 
     this.projectService.addSourceFile(newFile).then(() => {
       this.closeModal();
-    }); // TODO @cdans .then(this.getProject.bind(this));
+      // TODO @cdans this.getProject.bind(this);
+    });
   }
 
   closeModal() {

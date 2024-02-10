@@ -2,10 +2,11 @@
 
 ## Getting Started
 
-This project consists of three main parts: 
-* the compiler server,
-* the API server, and 
-* the frontend.
+This project consists of three main parts:
+
+- the compiler server,
+- the API server, and
+- the frontend.
 
 ### Prerequisites
 
@@ -27,32 +28,69 @@ cd compiler/
 ```
 
 For Windows:
+
 ```sh
 cd compiler\
 mvnw.cmd spring-boot:run
 ```
 
 ### Starting the API Server
+
 Navigate to the `project/` directory and run the Maven Wrapper script:
+
 ```sh
 cd ../project/
 ./mvnw spring-boot:run
 ```
 
 For Windows:
+
 ```sh
 cd project\
 mvnw.cmd spring-boot:run
 ```
 
-### Starting the Frontend
-Navigate to the `ui/` directory, install the necessary dependencies, and start the server:
+### Starting the API Gateway Server
+
+Navigate to the `gateway/` directory and run the Maven Wrapper script:
+
 ```sh
-cd ../ui/
+cd ../gateway/
 ./mvnw spring-boot:run
 ```
 
 For Windows:
+
+````sh
+cd gateway\
+mvnw.cmd spring-boot:run
+
+### Starting the API Discoveryserver Server
+
+Navigate to the `discoveryserver/` directory and run the Maven Wrapper script:
+
+```sh
+cd ../discoveryserver/
+./mvnw spring-boot:run
+````
+
+For Windows:
+
+````sh
+cd discoveryserver\
+mvnw.cmd spring-boot:run
+
+### Starting the Frontend
+
+Navigate to the `ui/` directory, install the necessary dependencies, and start the server:
+
+```sh
+cd ../ui/
+./mvnw spring-boot:run
+````
+
+For Windows:
+
 ```sh
 cd ui\
 mvnw.cmd spring-boot:run
@@ -61,6 +99,7 @@ mvnw.cmd spring-boot:run
 Now, you should be able to access the frontend at `http://localhost:8083`.
 
 ## Docker (Optional)
+
 You can use Docker Compose to build and run all the services at once.
 
 To build and run all the services, use the following command:

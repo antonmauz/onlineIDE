@@ -5,7 +5,7 @@ import { switchMap } from 'rxjs/operators';
 
 import { PROJECT_BACKEND_URL } from '../../../../consts';
 import { Project } from '../../classes/project/project';
-import { SourceFile } from '../../classes/sourceFile/sourceFile';
+import { CreateSourceFileDTO, SourceFile } from '../../classes/sourceFile/sourceFile';
 
 @Injectable({
   providedIn: 'root',
@@ -56,7 +56,7 @@ export class ProjectService {
     );
   }
 
-  async addSourceFile(file: Omit<SourceFile, 'id'>) {
+  async addSourceFile(file: CreateSourceFileDTO) {
     return await fetch(`${PROJECT_BACKEND_URL}/sourcefiles`, {
       method: 'POST',
       headers: {

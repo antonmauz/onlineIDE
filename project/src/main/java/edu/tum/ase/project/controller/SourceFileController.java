@@ -2,7 +2,6 @@ package edu.tum.ase.project.controller;
 
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,7 +16,6 @@ import edu.tum.ase.project.model.SourceFileDTO;
 import edu.tum.ase.project.repository.ProjectRepository;
 import edu.tum.ase.project.service.SourceFileService;
 
-@CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/sourcefiles")
 public class SourceFileController {
@@ -38,7 +36,7 @@ public class SourceFileController {
                 .orElseThrow(() -> new RuntimeException("Project not found"));
 
         // Create a new SourceFile object and set the fields from the SourceFileDTO
-        SourceFile sourceFile = new SourceFile(sourceFileDTO.getFileName(), sourceFileDTO.getSourceCode(), project);
+        SourceFile sourceFile = new SourceFile(sourceFileDTO.getFileName(), sourceFileDTO.getCode(), project);
 
         return sourceFileService.createSourceFile(sourceFile);
     }
