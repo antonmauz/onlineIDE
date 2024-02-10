@@ -5,7 +5,10 @@ import { switchMap } from 'rxjs/operators';
 
 import { PROJECT_BACKEND_URL } from '../../../../consts';
 import { Project } from '../../classes/project/project';
-import { CreateSourceFileDTO, SourceFile } from '../../classes/sourceFile/sourceFile';
+import {
+  CreateSourceFileDTO,
+  SourceFile,
+} from '../../classes/sourceFile/sourceFile';
 
 @Injectable({
   providedIn: 'root',
@@ -66,6 +69,7 @@ export class ProjectService {
     }).then((response) => response.json());
   }
 
+  // TODO @jasper not done yet
   async updateSourceFile(file: SourceFile) {
     return await fetch(`${PROJECT_BACKEND_URL}/sourcefiles/${file.id}`, {
       method: 'PUT',
