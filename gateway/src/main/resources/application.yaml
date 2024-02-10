@@ -1,8 +1,23 @@
 spring:
-  main:
-    web-application-type: reactive
   application:
     name: gateway-service
+  security:
+    oauth2:
+      client:
+        provider:
+          gitlab:
+            authorization-uri: https://gitlab.lrz.de/oauth/authorize
+            token-uri: https://gitlab.lrz.de/oauth/token
+            user-info-uri: https://gitlab.lrz.de/api/v4/user
+            user-name-attribute: username
+            jwk-set-uri: https://gitlab.lrz.de/oauth/discovery/keys
+        registration:
+          gitlab:
+            provider: gitlab
+            redirect-uri: http://localhost:8000/login/oauth2/code/gitlab
+            authorization-grant-type: authorization_code
+            client-id: e524dae9467178fa924438f243413774819266c1915243750d91234b19d0d198
+            client-secret: gloas-a7c46219519888969c9d489e21cc0237fd74bfaa11e9173b9bbf61c246f91b88
   cloud:
     gateway:
       routes:
@@ -12,18 +27,24 @@ spring:
             - Path=/project/**
           filters:
             - RewritePath=/project/(?<segment>.*), /$\{segment}
+            - TokenRelay=
+            - RemoveRequestHeader=Cookie
         - id: compiler-service
           uri: lb://compiler-service
           predicates:
             - Path=/compiler/**
           filters:
             - RewritePath=/compiler/(?<segment>.*), /$\{segment}
+            - TokenRelay=
+            - RemoveRequestHeader=Cookie
         - id: ui-service
           uri: lb://ui-service
           predicates:
             - Path=/**
           filters:
             - RewritePath=/ui/(?<segment>.*), /$\{segment}
+            - TokenRelay=
+            - RemoveRequestHeader=Cookie
 
 eureka:
   client:

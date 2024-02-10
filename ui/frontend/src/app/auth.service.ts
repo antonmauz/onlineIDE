@@ -5,7 +5,7 @@ import { Router } from '@angular/router';
 import { ReplaySubject } from 'rxjs';
 
 const LOGIN_PATH = '/login';
-const LOGOUT_PATH = '/logout';
+const LOGOUT_PATH = 'http://localhost:8000/logout';
 
 @Injectable({
   providedIn: 'root',
@@ -24,14 +24,16 @@ export class AuthService {
   }
 
   public checkAuthentication(): void {
-    this.httpClient.get<boolean>('/api/authenticated').subscribe(
-      (authenticated) => {
-        this.authenticated$.next(authenticated);
-      },
-      (err) => {
-        this.authenticated$.next(false);
-      }
-    );
+    this.httpClient
+      .get<boolean>('http://localhost:8000/api/authenticated')
+      .subscribe(
+        (authenticated) => {
+          this.authenticated$.next(authenticated);
+        },
+        (err) => {
+          this.authenticated$.next(false);
+        }
+      );
   }
 
   public login(): void {
