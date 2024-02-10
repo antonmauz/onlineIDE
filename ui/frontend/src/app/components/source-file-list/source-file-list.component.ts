@@ -1,15 +1,12 @@
-import {
-  Component,
-  ViewChild,
-} from '@angular/core';
+import { Component, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
+import { MatMenuTrigger } from '@angular/material/menu';
 import { ActivatedRoute } from '@angular/router';
 
 import { Project } from '../../classes/project/project';
 import { SourceFile } from '../../classes/sourceFile/sourceFile';
 import { ProjectService } from '../../services/project/project.service';
-import {
-  SourceFileService,
-} from '../../services/sourceFile/source-file.service';
+import { SourceFileService } from '../../services/sourceFile/source-file.service';
 import { InputModalComponent } from '../input-modal/input-modal.component';
 
 @Component({
@@ -19,15 +16,20 @@ import { InputModalComponent } from '../input-modal/input-modal.component';
 })
 export class SourceFileListComponent {
   @ViewChild(InputModalComponent) inputModal!: InputModalComponent;
+  @ViewChild(MatMenuTrigger, { static: true }) matMenuTrigger!: MatMenuTrigger;
 
   projectId: string | null = null;
   project: Project | undefined;
   selectedFile: SourceFile | null = null;
+  menuTopLeftPosition = { x: 0, y: 0 };
+  userInput = '';
+  trigger: MatMenuTrigger | undefined;
 
   constructor(
     private projectService: ProjectService,
     private route: ActivatedRoute,
-    private sourceFileService: SourceFileService
+    private sourceFileService: SourceFileService,
+    private Dialog: MatDialog
   ) {}
 
   getProject() {
@@ -52,6 +54,17 @@ export class SourceFileListComponent {
     this.projectService.deleteFile(fileId).subscribe(() => {
       this.getProject();
     });
+  }
+
+  openMenu(event: MouseEvent, file: SourceFile, trigger: MatMenuTrigger): void {
+    event.preventDefault();
+    this.selectFile(file);
+
+    this.menuTopLeftPosition.x = event.clientX;
+    this.menuTopLeftPosition.y = event.clientY;
+
+    this.trigger = trigger;
+    this.trigger.openMenu();
   }
 
   shareProject() {

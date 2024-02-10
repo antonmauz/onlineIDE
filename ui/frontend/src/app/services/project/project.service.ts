@@ -1,9 +1,6 @@
 import { Injectable } from '@angular/core';
 
-import {
-  from,
-  of,
-} from 'rxjs';
+import { from, of } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
 import { PROJECT_BACKEND_URL } from '../../../../consts';
@@ -62,6 +59,16 @@ export class ProjectService {
   async addSourceFile(file: Omit<SourceFile, 'id'>) {
     return await fetch(`${PROJECT_BACKEND_URL}/sourcefiles`, {
       method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(file),
+    }).then((response) => response.json());
+  }
+
+  async updateSourceFile(file: SourceFile) {
+    return await fetch(`${PROJECT_BACKEND_URL}/sourcefiles/${file.id}`, {
+      method: 'PUT',
       headers: {
         'Content-Type': 'application/json',
       },

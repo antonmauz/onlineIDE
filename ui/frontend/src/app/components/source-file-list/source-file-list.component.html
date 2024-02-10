@@ -1,22 +1,26 @@
 <mat-list *ngIf="project?.sourceFiles?.length; else noFiles">
-  <mat-list-item
-    *ngFor="let file of project?.sourceFiles"
-    (click)="selectFile(file)"
-    [class.selected-file]="file === selectedFile"
-  >
-    <div class="row">
-      <img matListAvatar class="icon" src="/assets/file.png" alt="File" />
-      <h4 matLine>{{ file.fileName }}</h4>
+  <ng-container *ngFor="let file of project?.sourceFiles">
+    <mat-list-item
+      (click)="selectFile(file)"
+      [class.selected-file]="file === selectedFile"
+      (contextmenu)="openMenu($event, file, menuTrigger)"
+    >
+      <div class="row">
+        <img matListAvatar class="icon" src="/assets/file.png" alt="File" />
+        <h4 matLine>{{ file.fileName }}</h4>
+      </div>
       <button
-        mat-raised-button
-        color="primary"
-        class="full-width"
-        (click)="deleteFile(file.id)"
-      >
-        Delete
-      </button>
-    </div>
-  </mat-list-item>
+        style="display: none"
+        [matMenuTriggerFor]="rightMenu"
+        #menuTrigger="matMenuTrigger"
+      ></button>
+
+      <mat-menu #rightMenu="matMenu">
+        <button mat-menu-item>Edit Name</button>
+        <button mat-menu-item (click)="deleteFile(file.id)">Delete File</button>
+      </mat-menu>
+    </mat-list-item>
+  </ng-container>
 </mat-list>
 <button
   mat-raised-button
