@@ -10,7 +10,7 @@ import { ProjectService } from '../../services/project/project.service';
   styleUrl: './input-modal.component.css',
 })
 export class InputModalComponent {
-  @Output() addFileEvent = new EventEmitter<string>();
+  @Output() fileAdded = new EventEmitter<void>();
   userInput = '';
   showModal = false;
 
@@ -26,8 +26,6 @@ export class InputModalComponent {
   }
 
   addFile() {
-    this.addFileEvent.emit(this.userInput);
-
     const newFile: CreateSourceFileDTO = {
       fileName: this.userInput,
       code: `public class ${this.userInput} { public static void main(String[] args) { System.out.println(\"Hello, World!\"); } }`,
@@ -37,8 +35,9 @@ export class InputModalComponent {
     console.log('Adding file:', this.userInput);
 
     this.projectService.addSourceFile(newFile).then(() => {
+      this.userInput = '';
       this.closeModal();
-      // TODO @cdans this.getProject.bind(this);
+      this.fileAdded.emit();
     });
   }
 

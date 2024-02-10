@@ -40,7 +40,7 @@
   Share project
 </button>
 
-<app-input-modal>(addFileEvent)="addFile($event)"</app-input-modal>
+<app-input-modal (fileAdded)="getProject()"></app-input-modal>
 
 <ng-template #noFiles>
   <h4 matLine class="white-text">No source files</h4>

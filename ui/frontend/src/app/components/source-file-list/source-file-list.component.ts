@@ -22,7 +22,6 @@ export class SourceFileListComponent {
   project: Project | undefined;
   selectedFile: SourceFile | null = null;
   menuTopLeftPosition = { x: 0, y: 0 };
-  userInput = '';
   trigger: MatMenuTrigger | undefined;
 
   constructor(
