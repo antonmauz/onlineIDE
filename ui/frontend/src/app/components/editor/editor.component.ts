@@ -43,7 +43,6 @@ export class EditorComponent implements OnInit {
       language = "c";
     }
     this.editorOptions = { theme: 'vs-dark', language: language };
-    // If your editor component requires, trigger a refresh or reinitialization here
   }
 
   async compile() {
