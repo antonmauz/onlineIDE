@@ -2,9 +2,11 @@ package edu.tum.ase.gateway;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.method.configuration.EnableReactiveMethodSecurity;
 import org.springframework.security.config.annotation.web.reactive.EnableWebFluxSecurity;
 import org.springframework.security.config.web.server.ServerHttpSecurity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.oauth2.client.InMemoryReactiveOAuth2AuthorizedClientService;
 import org.springframework.security.oauth2.client.ReactiveOAuth2AuthorizedClientManager;
 import org.springframework.security.oauth2.client.ReactiveOAuth2AuthorizedClientService;
@@ -13,8 +15,9 @@ import org.springframework.security.oauth2.client.web.reactive.function.client.S
 import org.springframework.security.web.server.SecurityWebFilterChain;
 import org.springframework.security.web.server.csrf.CookieServerCsrfTokenRepository;
 import org.springframework.security.web.server.csrf.ServerCsrfTokenRepository;
-import org.springframework.security.web.server.util.matcher.PathPatternParserServerWebExchangeMatcher;
 import org.springframework.web.reactive.function.client.WebClient;
+
+import reactor.core.publisher.Mono;
 
 @Configuration
 @EnableWebFluxSecurity
@@ -33,7 +36,11 @@ public class SpringSecurityConfig {
                 // .csrf(csrf -> csrf.csrfTokenRepository(csrfTokenRepository()))
                 .logout(logout -> logout
                         .logoutUrl("/logout")
-                        .requiresLogout(new PathPatternParserServerWebExchangeMatcher("/logout")));
+                        .logoutSuccessHandler((exchange, authentication) -> {
+                            SecurityContextHolder.clearContext();
+                            exchange.getExchange().getResponse().setStatusCode(HttpStatus.OK);
+                            return Mono.empty();
+                        }));
 
         return http.build();
     }
