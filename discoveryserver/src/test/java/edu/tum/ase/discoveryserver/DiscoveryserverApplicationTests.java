@@ -8,5 +8,6 @@ class DiscoveryserverApplicationTests {
 
 	@Test
 	void contextLoads() {
+		
 	}
 }
