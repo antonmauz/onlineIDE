@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 
 import { CompiledSourceFileDTO, SourceFile, SourceFileDTO } from '../../classes/sourceFile/sourceFile';
 import { SourceFileService } from '../../services/sourceFile/source-file.service';
@@ -7,11 +7,13 @@ import { CompilerService } from '../../services/compiler/compiler.service';
 @Component({
   selector: 'app-editor',
   templateUrl: './editor.component.html',
-  styleUrl: './editor.component.css',
+  styleUrls: ['./editor.component.css'],
 })
-export class EditorComponent {
+export class EditorComponent implements OnInit {
   file: SourceFile | null = null;
   compilationResult: CompiledSourceFileDTO | null = null;
+  language: string | null = null;
+  editorOptions: any;
 
   constructor(
     private sourceFileService: SourceFileService,
@@ -21,16 +23,33 @@ export class EditorComponent {
   ngOnInit() {
     this.sourceFileService.selectedFile.subscribe((file) => {
       this.file = file;
+      this.updateEditorLanguage();
     });
   }
 
-  async compile() {
-    if (this.file) {
-      const sourceFileDto = new SourceFileDTO(this.file.fileName, this.file.code);
-      const compilationResult = await this.compilerService.compile(sourceFileDto);
-      this.compilationResult = compilationResult;
+  private getFileType(): string | null | undefined {
+    if (!this.file) {
+      return null;
     }
+    return this.file.fileName.split('.').pop();
   }
 
-  editorOptions = { theme: 'vs-dark', language: 'java' };
+  private updateEditorLanguage() {
+    const fileType = this.getFileType();
+    let language = "text/plain";
+    if (fileType === "java") {
+      language = "java";
+    } else if (fileType === "c") {
+      language = "c";
+    }
+    this.editorOptions = { theme: 'vs-dark', language: language };
+    // If your editor component requires, trigger a refresh or reinitialization here
+  }
+
+  async compile() {
+    if (!this.file) { return; }
+    const sourceFileDto = new SourceFileDTO(this.file.fileName, this.file.code);
+    const compilationResult = await this.compilerService.compile(sourceFileDto);
+    this.compilationResult = compilationResult;
+  }
 }

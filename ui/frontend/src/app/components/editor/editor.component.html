@@ -12,6 +12,7 @@
   [options]="editorOptions"
   [(ngModel)]="file.code"
 ></ngx-monaco-editor>
+<p>{{editorOptions.language}}</p>
 <p class="output" *ngIf="compilationResult?.stdout">Output: {{ compilationResult?.stdout }}</p>
 <p class="output" *ngIf="compilationResult?.stderr">Error: {{ compilationResult?.stderr }}</p>
 <p class="output" *ngIf="!!compilationResult?.compilable">Successfully compiled...</p>
