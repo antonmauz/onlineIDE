@@ -1,5 +1,4 @@
 import { Component, ViewChild } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { ActivatedRoute } from '@angular/router';
 
@@ -27,8 +26,7 @@ export class SourceFileListComponent {
   constructor(
     private projectService: ProjectService,
     private route: ActivatedRoute,
-    private sourceFileService: SourceFileService,
-    private Dialog: MatDialog
+    private sourceFileService: SourceFileService
   ) {}
 
   getProject() {
