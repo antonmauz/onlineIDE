@@ -1,4 +1,4 @@
-<h2 matline class="white-text">{{ project?.name }}</h2>
+<h2 matline>{{ project?.name }}</h2>
 <mat-list *ngIf="project?.sourceFiles?.length; else noFiles">
   <ng-container *ngFor="let file of project?.sourceFiles">
     <mat-list-item
@@ -25,24 +25,6 @@
         </button>
         <button mat-menu-item (click)="deleteFile(file.id)">Delete File</button>
       </mat-menu>
-      <ng-template #myDialog>
-        <h2 matDialogTitle>Edit Name</h2>
-        <mat-dialog-content>
-          <p>Please enter the new name of your file below</p>
-          <mat-form-field>
-            <mat-label>Name</mat-label>
-            <input matInput [(ngModel)]="fileName" />
-          </mat-form-field>
-        </mat-dialog-content>
-        <mat-dialog-actions align="end">
-          <button mat-button [mat-dialog-close]="fileName" cdkFocusInitial>
-            Save
-          </button>
-          <button mat-button (click)="onCancel()" color="primary">
-            Cancel
-          </button>
-        </mat-dialog-actions>
-      </ng-template>
     </mat-list-item>
   </ng-container>
 </mat-list>
@@ -66,5 +48,22 @@
 <app-input-modal (fileAdded)="getProject()"></app-input-modal>
 
 <ng-template #noFiles>
-  <h4 matLine class="white-text">No source files</h4>
+  <h4 matLine>No source files</h4>
+</ng-template>
+
+<ng-template #myDialog>
+  <h2 matDialogTitle>Edit Name</h2>
+  <mat-dialog-content>
+    <p>Please enter the new name of your file below</p>
+    <mat-form-field>
+      <mat-label>Name</mat-label>
+      <input matInput [(ngModel)]="fileName" />
+    </mat-form-field>
+  </mat-dialog-content>
+  <mat-dialog-actions align="end">
+    <button mat-button [mat-dialog-close]="fileName" cdkFocusInitial>
+      Save
+    </button>
+    <button mat-button (click)="closeDialog()" color="primary">Cancel</button>
+  </mat-dialog-actions>
 </ng-template>

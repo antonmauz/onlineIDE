@@ -89,10 +89,12 @@ export class SourceFileListComponent {
           }
         );
       }
+      this.fileName = '';
     });
   }
 
-  onCancel(): void {
+  closeDialog(): void {
+    this.fileName = '';
     this.dialogRef.close();
   }
 
