@@ -34,7 +34,7 @@ class WebMvcConfiguration implements WebMvcConfigurer {
 @Controller
 class ForwardToIndexController {
 
-    @RequestMapping(value = "/**")
+    @RequestMapping(value = "/**/{path:[^\\.]*}")
     public String forward(HttpServletRequest request) {
         return "forward:/index.html";
     }
