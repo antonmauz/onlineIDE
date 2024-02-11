@@ -26,9 +26,17 @@ export class InputModalComponent {
   }
 
   addFile() {
+    const className = this.userInput.split('.')[0];
+    const fileType = this.userInput.split('.').pop();
+
+    const code =
+      fileType === 'java'
+        ? `public class ${className} { public static void main(String[] args) { System.out.println(\"Hello, World!\"); } }`
+        : '';
+
     const newFile: CreateSourceFileDTO = {
       fileName: this.userInput,
-      code: `public class ${this.userInput} { public static void main(String[] args) { System.out.println(\"Hello, World!\"); } }`,
+      code,
       project: this.projectId ?? '',
     };
 

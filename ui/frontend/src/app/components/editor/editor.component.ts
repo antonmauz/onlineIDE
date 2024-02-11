@@ -65,7 +65,6 @@ export class EditorComponent implements OnInit {
     console.log(this.editor.getModel().getValue());
 
     if (this.file.code !== this.editor.getModel().getValue()) {
-      // alert "YOu have unsaved changes. Please save before compiling."
       alert('You have unsaved changes. Please save before compiling.');
       return;
     }
