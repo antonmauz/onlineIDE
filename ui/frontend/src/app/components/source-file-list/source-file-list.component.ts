@@ -1,6 +1,9 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, TemplateRef, ViewChild } from '@angular/core';
+import { MatDialog } from '@angular/material/dialog';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { ActivatedRoute } from '@angular/router';
+
+import { from } from 'rxjs';
 
 import { Project } from '../../classes/project/project';
 import { SourceFile } from '../../classes/sourceFile/sourceFile';
@@ -22,11 +25,14 @@ export class SourceFileListComponent {
   selectedFile: SourceFile | null = null;
   menuTopLeftPosition = { x: 0, y: 0 };
   trigger: MatMenuTrigger | undefined;
+  dialogRef: any;
+  fileName: string = '';
 
   constructor(
     private projectService: ProjectService,
     private route: ActivatedRoute,
-    private sourceFileService: SourceFileService
+    private sourceFileService: SourceFileService,
+    public dialog: MatDialog
   ) {}
 
   getProject() {
@@ -62,6 +68,32 @@ export class SourceFileListComponent {
 
     this.trigger = trigger;
     this.trigger.openMenu();
+  }
+
+  openDialog(templateRef: TemplateRef<any>, file: SourceFile): void {
+    this.selectFile(file);
+
+    this.dialogRef = this.dialog.open(templateRef, {
+      width: '600px',
+    });
+
+    this.dialogRef.afterClosed().subscribe((result: string) => {
+      if (result) {
+        const updatedFile: SourceFile = {
+          ...file,
+          fileName: result,
+        };
+        from(this.projectService.updateSourceFile(updatedFile)).subscribe(
+          () => {
+            this.getProject();
+          }
+        );
+      }
+    });
+  }
+
+  onCancel(): void {
+    this.dialogRef.close();
   }
 
   shareProject() {
