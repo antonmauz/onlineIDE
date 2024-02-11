@@ -1,0 +1,11 @@
+spring:
+  security:
+    oauth2:
+      client:
+        registration:
+          gitlab:
+            provider: gitlab
+            redirect-uri: http://34.159.127.149:8000/login/oauth2/code/gitlab
+            authorization-grant-type: authorization_code
+            client-id: 927f48e493a9893bbed935d8a287216714734e4d24c3a38b756c0188a5923555
+            client-secret: gloas-adcafcf62e113178f5815895efd6741e8c32b1ce34f52c6019f77bee2a1659d7

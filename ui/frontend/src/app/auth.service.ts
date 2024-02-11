@@ -4,8 +4,7 @@ import { Router } from '@angular/router';
 
 import { ReplaySubject } from 'rxjs';
 
-const LOGIN_PATH = '/login';
-const LOGOUT_PATH = 'http://localhost:8000/logout';
+import { GATEWAY_BACKEND_URL } from '../../consts';
 
 @Injectable({
   providedIn: 'root',
@@ -25,7 +24,7 @@ export class AuthService {
 
   public checkAuthentication(): void {
     this.httpClient
-      .get<boolean>('http://localhost:8000/api/authenticated')
+      .get<boolean>(`${GATEWAY_BACKEND_URL}/api/authenticated`)
       .subscribe(
         (authenticated) => {
           this.authenticated$.next(authenticated);
@@ -37,11 +36,11 @@ export class AuthService {
   }
 
   public login(): void {
-    window.location.href = `${window.location.origin}${LOGIN_PATH}`; // handled by backend
+    window.location.href = `${GATEWAY_BACKEND_URL}/login`; // handled by backend
   }
 
   public logout(): void {
-    this.httpClient.post(LOGOUT_PATH, {}).subscribe(() => {
+    this.httpClient.post(`${GATEWAY_BACKEND_URL}/logout`, {}).subscribe(() => {
       this.router.navigateByUrl('/');
       this.checkAuthentication();
     });
