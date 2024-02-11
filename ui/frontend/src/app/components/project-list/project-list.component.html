@@ -12,7 +12,23 @@
 
     <ng-container matColumnDef="name">
       <mat-header-cell *matHeaderCellDef> Name </mat-header-cell>
-      <mat-cell *matCellDef="let project"> {{ project.name }} </mat-cell>
+      <mat-cell *matCellDef="let project">
+        <div *ngIf="project.editing">
+          <mat-form-field>
+            <input
+              matInput
+              [(ngModel)]="newName"
+              (blur)="updateProject(project, newName)"
+            />
+          </mat-form-field>
+        </div>
+        <div
+          *ngIf="!project.editing"
+          (click)="project.editing = true; newName = project.name"
+        >
+          {{ project.name }}
+        </div>
+      </mat-cell>
     </ng-container>
 
     <ng-container matColumnDef="users">

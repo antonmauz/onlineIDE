@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 
+import { from } from 'rxjs';
+
 import { Project } from '../../classes/project/project';
 import { ProjectService } from '../../services/project/project.service';
 
@@ -37,6 +39,8 @@ const ANIMALS = [
   styleUrl: './project-list.component.css',
 })
 export class ProjectListComponent {
+  newName: string | undefined;
+
   constructor(private projectService: ProjectService) {}
 
   getProjects() {
@@ -64,9 +68,19 @@ export class ProjectListComponent {
       .then(this.getProjects.bind(this));
   }
 
+  updateProject(project: Project, newName: string | undefined) {
+    if (newName !== undefined) {
+      project.name = newName;
+
+      from(this.projectService.updateProject(project)).subscribe(() =>
+        this.getProjects()
+      );
+    }
+  }
+
   deleteProject(projectId: number) {
-    this.projectService
-      .deleteProject(projectId)
-      .subscribe(() => this.getProjects());
+    from(this.projectService.deleteProject(projectId)).subscribe(() =>
+      this.getProjects()
+    );
   }
 }
