@@ -47,6 +47,16 @@ export class ProjectService {
     }).then((response) => response.json());
   }
 
+  async updateProject(project: Project) {
+    return await fetch(`${PROJECT_BACKEND_URL}/projects/${project.id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(project),
+    }).then((response) => response.json());
+  }
+
   getProject(projectId: string) {
     return from(fetch(`${PROJECT_BACKEND_URL}/projects/${projectId}`)).pipe(
       switchMap((res) => res.json())
@@ -69,7 +79,6 @@ export class ProjectService {
     }).then((response) => response.json());
   }
 
-  // TODO @jasper not done yet
   async updateSourceFile(file: SourceFile) {
     return await fetch(`${PROJECT_BACKEND_URL}/sourcefiles/${file.id}`, {
       method: 'PUT',
