@@ -34,11 +34,15 @@ public class SourceFileService {
         if (sourceFile.getId() == null) {
             return null;
         }
-
+        
         SourceFile existingSourceFile = sourceFileRepository.findById(sourceFile.getId()).get();
         if (existingSourceFile == null) {
             return null;
         }
+
+        // TODO improve this by adding a UpdateDTO
+        sourceFile.setProject(existingSourceFile.getProject());
+
         return sourceFileRepository.save(sourceFile);
     }
 
