@@ -4,14 +4,17 @@
   class="full-width"
   (click)="compile()"
   ng-disabled="!file"
+  [disabled]="!file"
 >
   Compile
 </button>
 <button
   mat-raised-button
-  color="primary"
+  color="secondary"
   class="full-width"
   ng-disabled="!file"
+  [disabled]="!file"
+  style="margin-left: 20px"
   (click)="saveCode()"
 >
   Save
@@ -19,7 +22,7 @@
 <ngx-monaco-editor
   *ngIf="file"
   [options]="editorOptions"
-  [(ngModel)]="file.code"
+  [model]="{ value: file.code, language: editorOptions.language }"
   (onInit)="onInitEditor($event)"
 ></ngx-monaco-editor>
 <h4>Output</h4>

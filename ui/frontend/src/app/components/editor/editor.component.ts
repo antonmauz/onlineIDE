@@ -60,9 +60,20 @@ export class EditorComponent implements OnInit {
     if (!this.file) {
       return;
     }
+
+    console.log(this.file.code);
+    console.log(this.editor.getModel().getValue());
+
+    if (this.file.code !== this.editor.getModel().getValue()) {
+      // alert "YOu have unsaved changes. Please save before compiling."
+      alert('You have unsaved changes. Please save before compiling.');
+      return;
+    }
+
     const sourceFileDto = new SourceFileDTO(this.file.fileName, this.file.code);
     const compilationResult = await this.compilerService.compile(sourceFileDto);
     this.compilationResult = compilationResult;
+    console.log(compilationResult);
   }
 
   saveCode() {
@@ -74,6 +85,8 @@ export class EditorComponent implements OnInit {
       ...this.file,
       code: this.editor.getModel().getValue(),
     };
-    this.projectService.updateSourceFile(updatedFile);
+    this.projectService.updateSourceFile(updatedFile).then(() => {
+      this.file = updatedFile;
+    });
   }
 }
