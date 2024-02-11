@@ -7,12 +7,28 @@
 >
   Compile
 </button>
+<button
+  mat-raised-button
+  color="primary"
+  class="full-width"
+  ng-disabled="!file"
+  (click)="saveCode()"
+>
+  Save
+</button>
 <ngx-monaco-editor
   *ngIf="file"
   [options]="editorOptions"
   [(ngModel)]="file.code"
+  (onInit)="onInitEditor($event)"
 ></ngx-monaco-editor>
 <h4>Output</h4>
-<p class="output" *ngIf="compilationResult?.stdout">{{ compilationResult?.stdout }}</p>
-<p class="output" *ngIf="compilationResult?.stderr">{{ compilationResult?.stderr }}</p>
-<p class="output" *ngIf="!!compilationResult?.compilable">Successfully compiled...</p>
+<p class="output" *ngIf="compilationResult?.stdout">
+  {{ compilationResult?.stdout }}
+</p>
+<p class="output" *ngIf="compilationResult?.stderr">
+  {{ compilationResult?.stderr }}
+</p>
+<p class="output" *ngIf="!!compilationResult?.compilable">
+  Successfully compiled...
+</p>
