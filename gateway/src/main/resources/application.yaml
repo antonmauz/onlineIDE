@@ -37,13 +37,6 @@ spring:
             - RewritePath=/compiler/(?<segment>.*), /$\{segment}
             - TokenRelay=
             - RemoveRequestHeader=Cookie
-        - id: dark-mode-service
-          uri: lb://dark-mode-service
-          predicates:
-            - Path=/dark-mode/**
-          filters:
-            - TokenRelay=
-            - RemoveRequestHeader=Cookie
         - id: ui-service
           uri: lb://ui-service
           predicates:
